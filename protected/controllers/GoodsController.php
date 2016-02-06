@@ -128,7 +128,6 @@ class GoodsController extends Controller
 		if ($this->loadModel($id)->parseprice()) {
 			$this->redirect(array('view','id'=>$id));
 		}
-
 	}
 
 	/**
