@@ -69,7 +69,7 @@ $this->menu=array(
 	<h2><?=$model->title?></h2>
 	Магазин: <b><?=$model->shop->title?></b><br/>
 	Ссылка: <b><a  href="data:text/html,&lt;html&gt;&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=&#039;<?=$model->url;?>&#039;&quot;&gt;&lt;/html&gt;"><?=$model->url;?></a></b><br />
-	Скрыт: <b><?=($model->notshow)?"НЕТ":"ДА";?></b><br/>
+	Скрыт: <b><?=($model->notshow)?"ДА":"НЕТ";?></b><br/>
 	Парсинг: <b><?=($model->notparse)?"НЕТ":"ДА";?></b><br/>
 	Выборка цен от <b></b> до <b></b><br />
 

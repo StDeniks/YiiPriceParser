@@ -138,10 +138,12 @@ class GoodsController extends Controller
 		$dataProvider=new CActiveDataProvider('Goods', array(
 			'criteria'=>array(
 				'with'=>array('prices'),
+				'condition' => 'notshow = 0',
 			),
 			'pagination'=>array(
 				'pageSize'=>20,
 			),
+
 
 		));
 

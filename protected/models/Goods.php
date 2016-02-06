@@ -47,7 +47,7 @@ class Goods extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'shop' => array(self::BELONGS_TO, 'Shops', 'shop_id'),
-			'prices' =>array(self::HAS_MANY, 'Prices', 'good_id'),
+			'prices' =>array(self::HAS_MANY, 'Prices', 'good_id', 'order'=>'prices.date ASC'),
 
 		);
 	}
@@ -120,7 +120,7 @@ class Goods extends CActiveRecord
 			$data = array(
 				'good_id' => $this->id,
 				'price' => $prices['new'],
-				'price_old' => $prices['old'],
+				'old_price' => $prices['old'],
 				'date' => date("Y-m-d")
 			);
 			$price_model->attributes = $data;

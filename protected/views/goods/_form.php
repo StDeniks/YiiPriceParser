@@ -32,7 +32,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'shop_id'); ?>
-		<?php echo $form->dropDownList($model, "shop_id", CHtml::listData($shops, 'id', function($shop){ return CHtml::encode($shop->title);})); ?>
+		<?php echo $form->dropDownList($model, "shop_id", CHtml::listData($shops, 'id', 'title')); ?>
 		<?php echo $form->error($model,'shop_id'); ?>
 	</div>
 

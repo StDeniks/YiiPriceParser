@@ -6,7 +6,7 @@ class LoadPricesCommand extends CConsoleCommand
 
 	public function run($args)
 	{
-		$goods = Goods::model()->findAll(array('limit' => 10, 'condition' => 'shop_id=2'));
+		$goods = Goods::model()->findAll();
 		foreach ($goods as $good) {
 			$parser = new Parser();
 			$prices = $parser->getPrices($good);
@@ -15,7 +15,7 @@ class LoadPricesCommand extends CConsoleCommand
 				$data = array(
 					'good_id' => $good->id,
 					'price' => $prices['new'],
-					'price_old' => $prices['old'],
+					'old_price' => $prices['old'],
 					'date' => date("Y-m-d")
 				);
 				$price_model->attributes = $data;
