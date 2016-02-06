@@ -8,11 +8,14 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Goods', 'url'=>array('index')),
-	array('label'=>'Manage Goods', 'url'=>array('admin')),
+	array('label'=>'На главную', 'url'=>array('index')),
+	/*array('label'=>'Manage Goods', 'url'=>array('admin')),*/
 );
 ?>
 
-<h1>Create Goods</h1>
+
+<div class="good-card">
+<h1>Добавить товар</h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>
+</div>

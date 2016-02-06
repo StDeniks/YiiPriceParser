@@ -6,6 +6,11 @@
 
 <div class="form">
 
+
+<?php
+	$shops = Shops::model()->findAll(array('select'=>"id, title"));
+?>
+
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'goods-form',
 	// Please note: When you enable ajax validation, make sure the corresponding
@@ -15,42 +20,42 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Поля с <span class="required">*</span> обязательны к заполнению.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textArea($model,'title',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($model,'title',array('rows'=>3, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'shop_id'); ?>
-		<?php echo $form->textField($model,'shop_id'); ?>
+		<?php echo $form->dropDownList($model, "shop_id", CHtml::listData($shops, 'id', function($shop){ return CHtml::encode($shop->title);})); ?>
 		<?php echo $form->error($model,'shop_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'url'); ?>
-		<?php echo $form->textArea($model,'url',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'url',array('class'=> 'long-input active')); ?>
 		<?php echo $form->error($model,'url'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'notshow'); ?>
-		<?php echo $form->textField($model,'notshow'); ?>
+		<?php echo $form->checkBox($model,'notshow'); ?>
 		<?php echo $form->error($model,'notshow'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'notparse'); ?>
-		<?php echo $form->textField($model,'notparse'); ?>
+		<?php echo $form->checkBox($model,'notparse'); ?>
 		<?php echo $form->error($model,'notparse'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', array('class' => 'button')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

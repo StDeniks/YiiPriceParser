@@ -29,7 +29,7 @@ class Goods extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('notshow, notparse', 'required'),
+			array('shop_id, url', 'required', 'message' => "не может быть пустым"),
 			array('shop_id, notshow, notparse', 'numerical', 'integerOnly'=>true),
 			array('title, url', 'safe'),
 			// The following rule is used by search().
@@ -47,7 +47,7 @@ class Goods extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'shop' => array(self::BELONGS_TO, 'Shops', 'shop_id'),
-			'pricess' =>array(self::HAS_MANY, 'Prices', 'good_id'),
+			'prices' =>array(self::HAS_MANY, 'Prices', 'good_id'),
 
 		);
 	}
@@ -107,4 +107,29 @@ class Goods extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function echotitle(){
+		echo $this->url;
+	}
+
+	public function parseprice(){
+		$parser = new Parser();
+		$prices = $parser->getPrices($this);
+		if ($prices) {
+			$price_model = new Prices;
+			$data = array(
+				'good_id' => $this->id,
+				'price' => $prices['new'],
+				'price_old' => $prices['old'],
+				'date' => date("Y-m-d")
+			);
+			$price_model->attributes = $data;
+			try {
+				return $price_model->save();
+			}catch (Exception $e){
+				return false;
+			}
+		}
+	}
+
 }

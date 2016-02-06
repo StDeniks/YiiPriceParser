@@ -6,7 +6,7 @@ class GoodsController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/column1';
 
 	/**
 	 * @return array action filters
@@ -36,7 +36,7 @@ class GoodsController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete', 'parseprice'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -98,6 +98,9 @@ class GoodsController extends Controller
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
+
+
+
 		$this->render('update',array(
 			'model'=>$model,
 		));
@@ -118,11 +121,32 @@ class GoodsController extends Controller
 	}
 
 	/**
+	 * Parse price
+	 */
+	public function actionParseprice($id)
+	{
+		if ($this->loadModel($id)->parseprice()) {
+			$this->redirect(array('view','id'=>$id));
+		}
+
+	}
+
+	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Goods');
+		$dataProvider=new CActiveDataProvider('Goods', array(
+			'criteria'=>array(
+				'with'=>array('prices'),
+			),
+			'pagination'=>array(
+				'pageSize'=>20,
+			),
+
+		));
+
+
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

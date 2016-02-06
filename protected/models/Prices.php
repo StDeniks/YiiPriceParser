@@ -29,15 +29,14 @@ class Prices extends CActiveRecord
 	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		/*return array(
-			array('old_price', 'required'),
+		return array(
 			array('good_id', 'numerical', 'integerOnly'=>true),
 			array('price, old_price', 'length', 'max'=>10),
 			array('date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('good_id, date, price, old_price', 'safe', 'on'=>'search'),
-		);*/
+		);
 	}
 
 	/**
@@ -102,5 +101,10 @@ class Prices extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function parseDate()
+	{
+		return explode("-", $this->date);
 	}
 }
