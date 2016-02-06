@@ -1,0 +1,150 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    display: block;
+    background: #000;
+    color: aquamarine;
+}
+
+.menu-buff{
+    height: 40px;
+
+}
+.top-menu{
+    position: fixed;
+    height: 40px;
+    /*background: linear-gradient(to bottom,  rgba(11,51,70,1) 0%,rgba(11,51,70,1) 100%);*/ /* W3C */
+    background: #0D3447;
+    width: 100%;
+    z-index: 100;
+}
+.top-menu ul{
+    margin:10px;
+}
+.top-menu li {
+    float: left;
+    list-style: none;
+}
+.top-menu li a{
+    margin: 5px;
+    border: solid 1px #45b3e7;
+    padding: 5px;
+    color: aquamarine;
+}
+
+
+.good-card{
+    margin: 5px;
+    padding: 5px;
+    /border-top: solid 1px #45b3e7;
+    background: linear-gradient(to bottom,  rgba(11,51,70,0.6) 0%,rgba(11,51,70,0.3) 100%); /* W3C */
+
+}
+.good-info{
+    width: 500px;
+    float: left;
+}
+.good-card b {
+    color: white;
+}
+.good-title{
+
+}
+.good-title a{
+    color: aquamarine;
+    text-decoration: none;
+}
+.good-title a:hover{
+    color: aquamarine;
+    text-decoration: underline;
+}
+.good-price-plot{
+    min-width: 300px;
+    height: 200px;
+
+    margin-left: 500px;
+
+}
+
+.edit-good-box{
+    margin: 20px;
+}
+.edit-good-box input[type=text]{
+    width: 400px;
+}
+
+.parse-button{
+    display: inline;
+    padding: 0 5px;
+    cursor: pointer;
+    border: solid 1px #45b3e7;
+
+}
+
+
+.login{
+    width: 250px;
+    margin: 100px auto;
+    padding: 10px;
+    background: linear-gradient(to bottom,  rgba(11,51,70,0.6) 0%,rgba(11,51,70,0.3) 100%);
+    border: solid 1px #45b3e7;
+}
+
+
+.login .row{
+    margin: 5px;
+}
+.login .form .errorMessage
+{
+    color: red;
+    font-size: 0.9em;
+}
+
+.button{
+    line-height: 20px;
+    border: solid 1px #45b3e7;
+    padding: 3px;
+    color: aquamarine;
+    background: transparent;
+    cursor: pointer;
+    text-decoration: none;
+}
+.button:hover{
+    background: rgba(11,51,70,0.6);
+}
+
+input, textarea, select{
+    border: solid 1px #3e6f9c;
+    background: transparent;
+    color: #45b3e7;
+}
+.long-input{
+    width: 400px;
+}
+
+input.error,textarea.error{
+    border: solid 1px red;
+    background: rgba(11, 51, 70, 0.48);
+}
+
+.row{
+    margin: 5px;
+}
+
+#sidebar{
+    background: #051217;
+    padding: 10px;
+}
+
+#sidebar li{
+    float: left;
+    list-style: none;
+    margin: 5px;
+
+}
+
+.clear{
+    clear:both;
+}
