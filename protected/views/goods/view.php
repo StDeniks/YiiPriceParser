@@ -74,11 +74,9 @@ $this->menu=array(
 	Выборка цен от <b></b> до <b></b><br />
 
 	<script type="text/javascript">
-
 		$(function () {
 			var set = hicharts_settings;
 			set.series=[{
-
 				name: '<?=$model->title?>',
 				data: [
 					<?
