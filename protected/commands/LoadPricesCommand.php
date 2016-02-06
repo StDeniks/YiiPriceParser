@@ -8,7 +8,7 @@ class LoadPricesCommand extends CConsoleCommand
 	{
 		$goods = Goods::model()->findAll();
 		foreach ($goods as $good) {
-			$parser = new Parser();
+			/*$parser = new Parser();
 			$prices = $parser->getPrices($good);
 			if ($prices) {
 				$price_model = new Prices;
@@ -24,7 +24,8 @@ class LoadPricesCommand extends CConsoleCommand
 				}
 
 			}
-
+*/
+			$good->parseprice();
 
 		}
 
