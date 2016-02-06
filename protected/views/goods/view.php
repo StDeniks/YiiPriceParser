@@ -90,7 +90,6 @@ $this->menu=array(
 					}
 					?>
 				]
-
 			}]
 			$('#plot<?=$model->id?>').highcharts(set);
 		});
