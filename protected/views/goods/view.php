@@ -77,7 +77,7 @@ $this->menu=array(
 		$(function () {
 			var set = hicharts_settings;
 			set.series=[{
-				name: '<?=$model->title?>',
+				name: '<?=CHtml::encode($model->title)?>',
 				data: [
 					<?
 					foreach($model->prices as $price){
