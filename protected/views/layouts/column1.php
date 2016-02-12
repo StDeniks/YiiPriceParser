@@ -4,7 +4,7 @@
 	<?php echo $content; ?>
 </div><!-- content -->
 
-<?php $this->endContent(); ?>
+
 <div id="sidebar">
 	<?php
 	$this->beginWidget('zii.widgets.CPortlet', array(
@@ -18,3 +18,5 @@
 	?>
 	<div class="clear"></div>
 </div><!-- sidebar -->
+
+<?php $this->endContent(); ?>

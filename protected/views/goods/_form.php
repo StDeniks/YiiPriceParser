@@ -28,6 +28,7 @@
 		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textArea($model,'title',array('rows'=>3, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'title'); ?>
+		<?php echo CHtml::ajaxButton('Спарсить заголовок', array('parsetitle','id'=>$model->id), array('success' => 'function(res){$("[name=\'Goods[title]\']").val(res)}')); ?>
 	</div>
 
 	<div class="row">

@@ -36,7 +36,7 @@ class GoodsController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete', 'parseprice'),
+				'actions'=>array('admin','delete', 'parseprice', 'parsetitle'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -69,7 +69,17 @@ class GoodsController extends Controller
 
 		if(isset($_POST['Goods']))
 		{
-			$model->attributes=$_POST['Goods'];
+			$data=$_POST['Goods'];
+
+			$parser = new Parser();
+
+			$shop_domain = $parser->fetchDomain($data['url']);
+			$shop = Shops::model()->findByAttributes(array('domain'=> $shop_domain));
+			$data['shop_id'] = $shop->id;
+			$data['title'] = $parser->getTitle($_POST['Goods']['url'], $shop);
+
+			$model->attributes = $data;
+
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -128,6 +138,16 @@ class GoodsController extends Controller
 		if ($this->loadModel($id)->parseprice()) {
 			$this->redirect(array('view','id'=>$id));
 		}
+	}
+
+	/**
+	 * Parse title
+	 */
+	public function actionParsetitle($id)
+	{
+
+		echo $this->loadModel($id)->parsetitle();
+
 	}
 
 	/**

@@ -6,7 +6,7 @@ class LoadPricesCommand extends CConsoleCommand
 
 	public function run($args)
 	{
-		$goods = Goods::model()->findAll();
+		$goods = Goods::model()->findAll('`notparse`=0');
 		foreach ($goods as $good) {
 			/*$parser = new Parser();
 			$prices = $parser->getPrices($good);

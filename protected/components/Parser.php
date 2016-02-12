@@ -7,6 +7,7 @@ class Parser
 	public $user_agent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17";
 	public $user_agent2 = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0";
 
+
 	function __construct()
 	{
 
@@ -90,10 +91,18 @@ class Parser
 			return false;
 	}
 
+	public function fetchDomain($url)
+	{
+		$domain = parse_url($url);
+		preg_match_all("/(\w+)/i", $domain["host"], $arr, PREG_PATTERN_ORDER);
+		$res = array_reverse($arr[0]);
+		return "{$res[1]}.{$res[0]}";
+	}
+
 	public function getTitle($url, $shop)
 	{
 		$html = $this->get($url);
-		$exp = "#" . preg_quote($shop['title_exp']) . "#";
+		$exp = "#" . preg_quote($shop->title_exp) . "#";
 		$exp = preg_replace("#\\\{title\\\}#", "(.*?)", $exp);
 		$exp = preg_replace("#\s#", ".*?", $exp);
 		if (preg_match($exp, $html, $p)) {

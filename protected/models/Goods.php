@@ -108,11 +108,13 @@ class Goods extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public function echotitle(){
+	public function echotitle()
+	{
 		echo $this->url;
 	}
 
-	public function parseprice(){
+	public function parseprice()
+	{
 		$parser = new Parser();
 		$prices = $parser->getPrices($this);
 		if ($prices) {
@@ -130,6 +132,14 @@ class Goods extends CActiveRecord
 				return false;
 			}
 		}
+	}
+
+	public function parsetitle()
+	{
+		$parser = new Parser();
+		$title = $parser->getTitle($this, $this->shop);
+		return $title;
+
 	}
 
 }
