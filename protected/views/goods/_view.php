@@ -14,7 +14,7 @@
 			var set = hicharts_settings;
 			set.series=[{
 
-				name: '<?=addcslashes($data->title, "'");?>',
+				name: '<?=addslashes($data->title);?>',
 				data: [
 					<?
 					foreach($data->prices as $price){

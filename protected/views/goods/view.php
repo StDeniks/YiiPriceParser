@@ -77,7 +77,7 @@ $this->menu=array(
 		$(function () {
 			var set = hicharts_settings;
 			set.series=[{
-				name: '<?=addcslashes($data->title, "'");?>',
+				name: '<?=addslashes($model->title);?>',
 				data: [
 					<?
 					foreach($model->prices as $price){
