@@ -15,12 +15,28 @@
 			set.series=[{
 
 				name: '<?=addslashes($data->title);?>',
+
 				data: [
 					<?
 					foreach($data->prices as $price){
-						if(intval($price['price'])>0){
+						if(intval($price->price)>0){
 							$date=$price->parseDate();
-							echo "[Date.UTC({$date[0]},{$date[1]}-1,{$date[2]}), {$price->price}],";
+							echo "{x: Date.UTC({$date[0]},{$date[1]}-1,{$date[2]}), y: {$price->price} },";
+						}
+					}
+					?>
+				]
+
+			},{
+
+				name: '<?=addslashes($data->title);?> старая цена',
+
+				data: [
+					<?
+					foreach($data->prices as $price){
+						if(intval($price->old_price)>0){
+							$date=$price->parseDate();
+							echo "{x: Date.UTC({$date[0]},{$date[1]}-1,{$date[2]}), y: {$price->old_price} },";
 						}
 					}
 					?>

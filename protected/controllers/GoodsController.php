@@ -28,7 +28,7 @@ class GoodsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view', 'search'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -155,6 +155,7 @@ class GoodsController extends Controller
 	 */
 	public function actionIndex()
 	{
+
 		$dataProvider=new CActiveDataProvider('Goods', array(
 			'criteria'=>array(
 				'with'=>array('prices'),
@@ -167,11 +168,31 @@ class GoodsController extends Controller
 
 		));
 
+		/*if (isset($_GET['Goods'])) {
+			$dataProvider->model->setScenario('search');
+			$dataProvider->model->unsetAttributes();
+			$dataProvider->model->attributes=$_GET['Goods'];
+		}*/
+
+
 
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
 	}
+
+	public function actionSearch(){
+
+		$model=new Goods('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Goods']))
+			$model->attributes=$_GET['Goods'];
+
+		$this->render('search',array(
+			'model'=>$model,
+		));
+	}
+
 
 	/**
 	 * Manages all models.

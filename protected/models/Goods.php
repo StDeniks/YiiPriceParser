@@ -87,7 +87,7 @@ class Goods extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
-		$criteria->compare('shop_id',$this->shop);
+		$criteria->compare('shop_id',$this->shop_id);
 		$criteria->compare('url',$this->url,true);
 		$criteria->compare('notshow',$this->notshow);
 		$criteria->compare('notparse',$this->notparse);

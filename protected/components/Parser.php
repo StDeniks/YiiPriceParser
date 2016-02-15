@@ -18,7 +18,7 @@ class Parser
 		$html = $this->get($good->url);
 
 		if (!$html) {
-			$this->Error("Неудалось получить страницу для:" . $good->title);
+			$this->Error("Неудалось получить страницу для:" . $good->id);
 		}
 
 
@@ -31,7 +31,7 @@ class Parser
 		}
 		$price['old'] = $this->fetchPrice($html, $good->shop->old_price_exp);
 		if (!$price['new']) {
-			$this->Error("Не удалось получить цену товара:" . $good->title);
+			$this->Error("Не удалось получить цену товара:" . $good->id);
 			return false;
 		}
 		return $price;

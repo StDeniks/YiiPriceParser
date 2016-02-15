@@ -12,8 +12,13 @@ $this->breadcrumbs=array(
 );*/
 ?>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/highcharts.js"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/modules/exporting.js"></script>
+<div class="good-card">
+	<h1>Поиск</h1>
 
-<h1>Просмотр ценовой динамики</h1>
+	<?php $this->renderPartial('_search_form', array('model'=>$model)); ?>
+</div>
+
 <script>
 	var hicharts_settings= {
 		chart: {
@@ -59,7 +64,7 @@ $this->breadcrumbs=array(
 </script>
 
 <?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
+	'dataProvider'=>$model->search(),
 	'itemView'=>'_view',
 	'template'=>"{items}\n{pager}",
 	'ajaxUpdate'=>false,

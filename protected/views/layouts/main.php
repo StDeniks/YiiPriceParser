@@ -22,6 +22,13 @@
 			),
 		)); ?>
 
+	<div class="search-form">
+		<form action="/goods/search">
+			<input name="Goods[title]" type="text" />
+			<input type="submit" value="Найти"/>
+		</form>
+	</div>
+
 
 </div>
 <div class="menu-buff"></div>

@@ -133,6 +133,11 @@ input.error,textarea.error{
     margin: 5px;
 }
 
+.search-form{
+    float: right;
+    margin-right: 20px;
+}
+
 #sidebar{
     background: #051217;
     padding: 10px;

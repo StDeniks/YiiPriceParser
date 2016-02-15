@@ -7,20 +7,20 @@
 <div class="form">
 
 
-<?php
+	<?php
 	$shops = Shops::model()->findAll(array('select'=>"id, title"));
-?>
+	?>
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'goods-form',
-	// Please note: When you enable ajax validation, make sure the corresponding
-	// controller action is handling ajax validation correctly.
-	// There is a call to performAjaxValidation() commented in generated controller code.
-	// See class documentation of CActiveForm for details on this.
-	'enableAjaxValidation'=>false,
-)); ?>
+	<?php $form=$this->beginWidget('CActiveForm', array(
+		'id'=>'goods-form',
+		'method' => 'get',
+		// Please note: When you enable ajax validation, make sure the corresponding
+		// controller action is handling ajax validation correctly.
+		// There is a call to performAjaxValidation() commented in generated controller code.
+		// See class documentation of CActiveForm for details on this.
+		'enableAjaxValidation'=>false,
+	)); ?>
 
-	<p class="note">Поля с <span class="required">*</span> обязательны к заполнению.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -43,7 +43,7 @@
 		<?php echo $form->error($model,'url'); ?>
 	</div>
 
-	<div class="row">
+	<? /*<div class="row">
 		<?php echo $form->labelEx($model,'notshow'); ?>
 		<?php echo $form->checkBox($model,'notshow'); ?>
 		<?php echo $form->error($model,'notshow'); ?>
@@ -54,11 +54,12 @@
 		<?php echo $form->checkBox($model,'notparse'); ?>
 		<?php echo $form->error($model,'notparse'); ?>
 	</div>
+ */ ?>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', array('class' => 'button')); ?>
+		<?php echo CHtml::submitButton('Найти', array('class' => 'button')); ?>
 	</div>
 
-<?php $this->endWidget(); ?>
+	<?php $this->endWidget(); ?>
 
 </div><!-- form -->
