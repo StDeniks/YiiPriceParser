@@ -142,4 +142,13 @@ class Goods extends CActiveRecord
 
 	}
 
+	public function getFirstDate()
+	{
+		return $this->prices[0]['date'];
+	}
+	public function getLastDate()
+	{
+		return $this->prices[count($this->prices)-1]['date'];
+	}
+
 }

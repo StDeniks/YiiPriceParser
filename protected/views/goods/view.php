@@ -71,7 +71,7 @@ $this->menu=array(
 	Ссылка: <b><a  href="data:text/html,&lt;html&gt;&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=&#039;<?=$model->url;?>&#039;&quot;&gt;&lt;/html&gt;"><?=$model->url;?></a></b><br />
 	Скрыт: <b><?=($model->notshow)?"ДА":"НЕТ";?></b><br/>
 	Парсинг: <b><?=($model->notparse)?"НЕТ":"ДА";?></b><br/>
-	Выборка цен от <b></b> до <b></b><br />
+	Выборка цен от <b><?=Yii::app()->utils->formatDate($model->getFirstDate())?></b> до <b><?=Yii::app()->utils->formatDate($model->getLastDate())?></b><br />
 
 	<script type="text/javascript">
 		$(function () {
@@ -81,14 +81,31 @@ $this->menu=array(
 				data: [
 					<?
 					foreach($model->prices as $price){
-						$price_ = ($price->price)?$price->price:$price->old_price;
-						$date=$price->parseDate();
-						echo "[Date.UTC({$date[0]},{$date[1]}-1,{$date[2]}), {$price_}],
-						";
+						if(intval($price->price)>0){
+							$date=$price->parseDate();
+							echo "[Date.UTC({$date[0]},{$date[1]}-1,{$date[2]}), {$price->price}],
+							";
+						}
 					}
 					?>
 				]
-			}]
+			},{
+				name: 'Старая цена',
+				type: 'scatter',
+				color: 'red',
+				data: [
+					<?
+					foreach($model->prices as $price){
+						if(intval($price->old_price)>0){
+							$date=$price->parseDate();
+							echo "[Date.UTC({$date[0]},{$date[1]}-1,{$date[2]}), {$price->old_price}],
+							";
+						}
+					}
+					?>
+				]
+			}
+			]
 			$('#plot<?=$model->id?>').highcharts(set);
 		});
 	</script>
