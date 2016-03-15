@@ -7,14 +7,16 @@
 	$model->title,
 );
 */
-$this->menu=array(
-	//array('label'=>'List Goods', 'url'=>array('index')),
-	//array('label'=>'Create Goods', 'url'=>array('create')),
-	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id), 'linkOptions'=> array('class'=>"button" )),
-	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('class'=>"button", 'submit'=>array('delete','id'=>$model->id),'confirm'=>'Вы действительно хотите удалить этот товар?')),
-	array('label'=>'Спарсить цену', 'url'=>'#', 'linkOptions'=>array('class'=>"button", 'submit'=>array('parseprice','id'=>$model->id))),
-	//array('label'=>'Manage Goods', 'url'=>array('admin')),
-);
+if (!Yii::app()->user->isGuest) {
+	$this->menu = array(
+		//array('label'=>'List Goods', 'url'=>array('index')),
+		//array('label'=>'Create Goods', 'url'=>array('create')),
+		array('label' => 'Изменить', 'url' => array('update', 'id' => $model->id), 'linkOptions' => array('class' => "button")),
+		array('label' => 'Удалить', 'url' => '#', 'linkOptions' => array('class' => "button", 'submit' => array('delete', 'id' => $model->id), 'confirm' => 'Вы действительно хотите удалить этот товар?')),
+		array('label' => 'Спарсить цену', 'url' => '#', 'linkOptions' => array('class' => "button", 'submit' => array('parseprice', 'id' => $model->id))),
+		//array('label'=>'Manage Goods', 'url'=>array('admin')),
+	);
+}
 ?>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/highcharts.js"></script>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/modules/exporting.js"></script>
@@ -72,8 +74,9 @@ $this->menu=array(
 	Скрыт: <b><?=($model->notshow)?"ДА":"НЕТ";?></b><br/>
 	Парсинг: <b><?=($model->notparse)?"НЕТ":"ДА";?></b><br/>
 	Выборка цен от <b><?=Yii::app()->utils->formatDate($model->getFirstDate())?></b> до <b><?=Yii::app()->utils->formatDate($model->getLastDate())?></b><br />
-
+	Рост цены: <b><?=round($model->aproxi[0]->infl, 2)?>%</b>
 	<script type="text/javascript">
+
 		$(function () {
 			var set = hicharts_settings;
 			set.series=[{
@@ -81,9 +84,9 @@ $this->menu=array(
 				data: [
 					<?
 					foreach($model->prices as $price){
-						if(intval($price->price)>0){
-							$date=$price->parseDate();
-							echo "[Date.UTC({$date[0]},{$date[1]}-1,{$date[2]}), {$price->price}],
+						if(floatval($price->price)>0){
+
+							echo "[({$price->getDatet()}000+4*60*60000), {$price->price}],// {$price->date}
 							";
 						}
 					}
@@ -96,15 +99,26 @@ $this->menu=array(
 				data: [
 					<?
 					foreach($model->prices as $price){
-						if(intval($price->old_price)>0){
-							$date=$price->parseDate();
-							echo "[Date.UTC({$date[0]},{$date[1]}-1,{$date[2]}), {$price->old_price}],
+						if(floatval($price->old_price)>0){
+							echo "[({$price->getDatet()}000+4*60*60000), {$price->old_price}],
 							";
 						}
 					}
 					?>
 				]
-			}
+			},
+				<? if ($model->aproxi[0] && abs($model->aproxi[0]->infl) > 1):?>
+				{
+					name: 'Апроксимация',
+					color: 'green',
+					data: [
+						<?
+							echo "[({$model->aproxi[0]->x0}000+5*60*60000), {$model->aproxi[0]->y0}],";
+							echo "[({$model->aproxi[0]->xn}000+5*60*60000), {$model->aproxi[0]->yn}],";
+						?>
+					]
+				}
+				<?endif;?>
 			]
 			$('#plot<?=$model->id?>').highcharts(set);
 		});
@@ -112,8 +126,6 @@ $this->menu=array(
 	<div id="plot<?=$model->id?>" ></div>
 
 </div>
-
-
 
 <?php /*$this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

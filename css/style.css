@@ -63,9 +63,11 @@ body{
 .good-price-plot{
     min-width: 300px;
     height: 200px;
-
     margin-left: 500px;
+}
 
+.good-infl{
+    font-size: 25px;
 }
 
 .edit-good-box{

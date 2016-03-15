@@ -37,7 +37,11 @@ class Goods extends CActiveRecord
 			array('id, title, shop, url, notshow, notparse', 'safe', 'on'=>'search'),
 		);
 	}
-
+/*
+ *
+ * 366 = 31622400
+ * 365 = 31536000
+ */
 	/**
 	 * @return array relational rules.
 	 */
@@ -47,8 +51,8 @@ class Goods extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'shop' => array(self::BELONGS_TO, 'Shops', 'shop_id'),
-			'prices' =>array(self::HAS_MANY, 'Prices', 'good_id', 'order'=>'prices.date ASC'),
-
+			'prices' => array(self::HAS_MANY, 'Prices', 'good_id', 'order'=>'`date` ASC', 'condition' => 'prices.date > "'.date("Y-m-d", (time()-31622400-24*60*60)).'"' ),
+			'aproxi' => array(self::HAS_MANY, 'Aproxi', 'good_id', 'limit'=>1),
 		);
 	}
 
@@ -123,7 +127,7 @@ class Goods extends CActiveRecord
 				'good_id' => $this->id,
 				'price' => $prices['new'],
 				'old_price' => $prices['old'],
-				'date' => date("Y-m-d")
+				'date' => date("Y-m-d"),
 			);
 			$price_model->attributes = $data;
 			try {
@@ -131,6 +135,74 @@ class Goods extends CActiveRecord
 			}catch (Exception $e){
 				return false;
 			}
+		}
+	}
+
+	public function calculateaproxi()
+	{
+		$n = 0;
+		$sumX = 0;
+		$sumXX = 0;
+		$sumY = 0;
+		$sumXY = 0;
+		if (!$this->prices) {
+			return false;
+		}
+
+		foreach ($this->prices as $price) {
+			if (floatval($price->price) > 0) {
+				$sumX += $price->getDatet();
+				$sumXX += $price->getDatet() * $price->getDatet();
+				$sumY += $price->price;
+				$sumXY += $price->getDatet() * $price->price;
+				$n++;
+			}
+		}
+		if ($sumX > 0) {
+			$a = ($n * $sumXY - $sumX * $sumY) / ($n * $sumXX - $sumX * $sumX);
+			$b = ($sumY - $a * $sumX) / $n;
+			$x0 = $this->prices[0]->getDatet();
+			$y0 = $a * $x0 + $b;
+			$xn = $this->prices[$n - 1]->getDatet();
+			$yn = $a * $xn + $b;
+
+			$infl = ($yn - $y0) * 100 / $y0;
+			/*echo "a:$a \r\nb:$b\r\n";
+			echo "A0[$x0:$y0]\r\n";
+			echo "An[$xn:$yn]\r\n";
+			echo "Dy=$infl%\r\n";*/
+
+			$aproxi_model = new Aproxi;
+			$data = array(
+				'good_id' => $this->id,
+				'date' => date("Y-m-d"),
+				'infl' => $infl,
+				'a' => $a,
+				'b' => $b,
+				'x0' => $x0,
+				'y0' => $y0,
+				'xn' => $xn,
+				'yn' => $yn,
+				'sumX' => $sumX,
+				'sumXX' => $sumXX,
+				'sumY' => $sumY,
+				'sumXY' => $sumXY,
+				'n' => $n,
+			);
+
+			$aproxi_model->attributes = $data;
+
+			try {
+				$aproxi_model->save();
+			}catch (Exception $e){
+
+			}
+			/*return array(
+				array('x' => $this->prices[0], 'y' => $y0),
+				array('x' => $this->prices[$n - 1], 'y' => $yn),
+			);*/
+
+
 		}
 	}
 
@@ -144,10 +216,12 @@ class Goods extends CActiveRecord
 
 	public function getFirstDate()
 	{
+		if (!$this->prices) return false;
 		return $this->prices[0]['date'];
 	}
 	public function getLastDate()
 	{
+		if (!$this->prices) return false;
 		return $this->prices[count($this->prices)-1]['date'];
 	}
 

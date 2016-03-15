@@ -25,7 +25,8 @@ class LoadPricesCommand extends CConsoleCommand
 
 			}
 */
-			$good->parseprice();
+			//echo $good->parseprice();
+			echo $good->calculateaproxi();
 
 		}
 

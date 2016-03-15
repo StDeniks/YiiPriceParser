@@ -155,26 +155,15 @@ class GoodsController extends Controller
 	 */
 	public function actionIndex()
 	{
-
 		$dataProvider=new CActiveDataProvider('Goods', array(
 			'criteria'=>array(
-				'with'=>array('prices'),
+				'with'=>array('prices', 'aproxi'),
 				'condition' => 'notshow = 0',
 			),
 			'pagination'=>array(
 				'pageSize'=>20,
 			),
-
-
 		));
-
-		/*if (isset($_GET['Goods'])) {
-			$dataProvider->model->setScenario('search');
-			$dataProvider->model->unsetAttributes();
-			$dataProvider->model->attributes=$_GET['Goods'];
-		}*/
-
-
 
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,

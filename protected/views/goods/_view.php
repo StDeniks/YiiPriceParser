@@ -6,7 +6,10 @@
 	<div class="good-info">
 		<div class="good-title"><?=CHtml::link(CHtml::encode($data->title), array('view', 'id'=>$data->id));?> <a href="#good<?=$data->id?>">#</a></div>
 		Выборка цен от <b><?=Yii::app()->utils->formatDate($data->getFirstDate())?></b> до <b><?=Yii::app()->utils->formatDate($data->getLastDate())?></b><br />
-		<img src="/data/shops/<?=$data->shop_id?>/logo_50x50.png" /><br/>
+		<span class="good-infl"><?=round($data->aproxi[0]->infl, 2)?>%</span><br/>
+		<img src="/data/shops/<?=$data->shop_id?>/logo_50x50.png" />
+
+		<br/>
 		<?if(!Yii::app()->user->isGuest):?><?=CHtml::link('Изменить', array('update', 'id'=>$data->id), array('class'=>"button"));?><br/><?endif;?>
 	</div>
 	<script type="text/javascript">
@@ -19,9 +22,8 @@
 				data: [
 					<?
 					foreach($data->prices as $price){
-						if(intval($price->price)>0){
-							$date=$price->parseDate();
-							echo "{x: Date.UTC({$date[0]},{$date[1]}-1,{$date[2]}), y: {$price->price} },";
+						if(floatval($price->price)>0){
+							echo "{x: ({$price->getDatet()}000+4*60*60000), y: {$price->price} },";
 						}
 					}
 					?>
@@ -35,9 +37,8 @@
 				data: [
 					<?
 					foreach($data->prices as $price){
-						if(intval($price->old_price)>0){
-							$date=$price->parseDate();
-							echo "{x: Date.UTC({$date[0]},{$date[1]}-1,{$date[2]}), y: {$price->old_price} },";
+						if(floatval($price->old_price)>0){
+							echo "{x: ({$price->getDatet()}000+4*60*60000), y: {$price->old_price} },";
 						}
 					}
 					?>
