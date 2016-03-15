@@ -9,7 +9,11 @@ class Utils extends CComponent
 
 	public function formatDate($date)
 	{
-		return date('d.m.Y', strtotime($date));
+		if ($date) {
+			return date('d.m.Y', strtotime($date));
+		}else{
+			return date('d.m.Y', time());
+		}
 	}
 
 }

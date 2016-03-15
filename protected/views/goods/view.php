@@ -74,7 +74,9 @@ if (!Yii::app()->user->isGuest) {
 	Скрыт: <b><?=($model->notshow)?"ДА":"НЕТ";?></b><br/>
 	Парсинг: <b><?=($model->notparse)?"НЕТ":"ДА";?></b><br/>
 	Выборка цен от <b><?=Yii::app()->utils->formatDate($model->getFirstDate())?></b> до <b><?=Yii::app()->utils->formatDate($model->getLastDate())?></b><br />
-	Рост цены: <b><?=round($model->aproxi[0]->infl, 2)?>%</b>
+	<?if($model->aproxi):?>
+		Рост цены: <b><?=round($model->aproxi[0]->infl, 2)?>%</b>
+	<?endif;?>
 	<script type="text/javascript">
 
 		$(function () {
@@ -83,11 +85,13 @@ if (!Yii::app()->user->isGuest) {
 				name: '<?=addslashes($model->title);?>',
 				data: [
 					<?
-					foreach($model->prices as $price){
-						if(floatval($price->price)>0){
+					if ($model->prices) {
+						foreach($model->prices as $price){
+							if(floatval($price->price)>0){
 
-							echo "[({$price->getDatet()}000+4*60*60000), {$price->price}],// {$price->date}
-							";
+								echo "[({$price->getDatet()}000+4*60*60000), {$price->price}],// {$price->date}
+								";
+							}
 						}
 					}
 					?>
@@ -98,16 +102,18 @@ if (!Yii::app()->user->isGuest) {
 				color: 'red',
 				data: [
 					<?
-					foreach($model->prices as $price){
-						if(floatval($price->old_price)>0){
-							echo "[({$price->getDatet()}000+4*60*60000), {$price->old_price}],
-							";
+					if ($model->prices) {
+						foreach($model->prices as $price){
+							if(floatval($price->old_price)>0){
+								echo "[({$price->getDatet()}000+4*60*60000), {$price->old_price}],
+								";
+							}
 						}
 					}
 					?>
 				]
 			},
-				<? if ($model->aproxi[0] && abs($model->aproxi[0]->infl) > 1):?>
+				<? if ($model->aproxi && abs($model->aproxi[0]->infl) > 1):?>
 				{
 					name: 'Апроксимация',
 					color: 'green',

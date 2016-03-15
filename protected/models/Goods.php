@@ -219,6 +219,7 @@ class Goods extends CActiveRecord
 		if (!$this->prices) return false;
 		return $this->prices[0]['date'];
 	}
+
 	public function getLastDate()
 	{
 		if (!$this->prices) return false;
