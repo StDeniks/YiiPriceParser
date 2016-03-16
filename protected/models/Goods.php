@@ -158,13 +158,15 @@ class Goods extends CActiveRecord
 				$n++;
 			}
 		}
-		if ($sumX > 0) {
-			$a = ($n * $sumXY - $sumX * $sumY) / ($n * $sumXX - $sumX * $sumX);
+		$zn = $n * $sumXX - $sumX * $sumX;
+		if ($zn > 0) {
+			$a = ($n * $sumXY - $sumX * $sumY) / $zn;
 			$b = ($sumY - $a * $sumX) / $n;
 			$x0 = $this->prices[0]->getDatet();
 			$y0 = $a * $x0 + $b;
 			$xn = $this->prices[$n - 1]->getDatet();
 			$yn = $a * $xn + $b;
+
 
 			$infl = ($yn - $y0) * 100 / $y0;
 			/*echo "a:$a \r\nb:$b\r\n";
