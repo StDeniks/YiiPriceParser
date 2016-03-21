@@ -105,10 +105,10 @@ class Prices extends CActiveRecord
 	}
 
 
-	public function getDatet()
+	public function getDatet($incr = 0, $multi = 1)
 	{
 		if (!$this->datet) {
-			$this->datet = strtotime($this->date);
+			$this->datet = (strtotime($this->date) + $incr) * $multi;
 		}
 		return $this->datet;
 	}

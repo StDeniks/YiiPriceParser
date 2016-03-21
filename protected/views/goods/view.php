@@ -40,7 +40,7 @@ if (!Yii::app()->user->isGuest) {
 					second: '%H:%M:%S',
 					minute: '%H:%M',
 					hour: '%H:%M',
-					day: '%e. %b',
+					day: '%e.%m.%Y',
 					week: '%e. %m',
 					month: '%b \'%y',
 					year: '%Y'
@@ -57,7 +57,7 @@ if (!Yii::app()->user->isGuest) {
 			},
 			tooltip: {
 				headerFormat: '<b>{series.name}</b><br>',
-				pointFormat: '{point.x:%e.%m.%Y}: {point.y:.2f} руб.'
+				pointFormat: '{point.x:%e.%m.%Y %H:%M}: {point.y:.2f} руб.'
 			},
 			legend: {
 				enabled: false
@@ -86,11 +86,9 @@ if (!Yii::app()->user->isGuest) {
 				data: [
 					<?
 					if ($model->prices) {
-						foreach($model->prices as $price){
-							if(floatval($price->price)>0){
-
-								echo "[({$price->getDatet()}000+4*60*60000), {$price->price}],// {$price->date}
-								";
+						foreach ($model->prices as $price) {
+							if (floatval($price->price) > 0) {
+								echo "[{$price->getDatet(10800, 1000)}, {$price->price}],";
 							}
 						}
 					}
@@ -103,10 +101,9 @@ if (!Yii::app()->user->isGuest) {
 				data: [
 					<?
 					if ($model->prices) {
-						foreach($model->prices as $price){
-							if(floatval($price->old_price)>0){
-								echo "[({$price->getDatet()}000+4*60*60000), {$price->old_price}],
-								";
+						foreach ($model->prices as $price) {
+							if (floatval($price->old_price) > 0) {
+								echo "[{$price->getDatet(10800, 1000)}, {$price->old_price}],";
 							}
 						}
 					}
@@ -119,8 +116,8 @@ if (!Yii::app()->user->isGuest) {
 					color: 'green',
 					data: [
 						<?
-							echo "[({$model->aproxi[0]->x0}000+5*60*60000), {$model->aproxi[0]->y0}],";
-							echo "[({$model->aproxi[0]->xn}000+5*60*60000), {$model->aproxi[0]->yn}],";
+							echo "[{$model->aproxi[0]->getDatet(0, 10800, 1000)}, {$model->aproxi[0]->y0}],";
+							echo "[{$model->aproxi[0]->getDatet(1, 10800, 1000)}, {$model->aproxi[0]->yn}],";
 						?>
 					]
 				}

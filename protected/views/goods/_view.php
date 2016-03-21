@@ -25,8 +25,8 @@
 					<?
 					if ($data->prices) {
 						foreach ($data->prices as $price) {
-							if(floatval($price->price)>0){
-								echo "{x: ({$price->getDatet()}000+4*60*60000), y: {$price->price} },";
+							if (floatval($price->price)>0) {
+								echo "[{$price->getDatet(10800, 1000)}, {$price->price}],";
 							}
 						}
 					}
@@ -41,9 +41,9 @@
 				data: [
 					<?
 					if ($data->prices) {
-						foreach($data->prices as $price){
-							if(floatval($price->old_price)>0){
-								echo "{x: ({$price->getDatet()}000+4*60*60000), y: {$price->old_price} },";
+						foreach ($data->prices as $price) {
+							if (floatval($price->old_price)>0) {
+								echo "[{$price->getDatet(10800, 1000)}, {$price->old_price}],";
 							}
 						}
 					}

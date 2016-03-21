@@ -21,6 +21,9 @@
  */
 class Aproxi extends CActiveRecord
 {
+
+	private $datetx0;
+	private $datetxn;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -129,9 +132,18 @@ class Aproxi extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public function parseDate($date)
+	public function getDatet($n, $incr = 0, $multi = 1)
 	{
-
-		return explode("-", date("Y-m-d", $date));
+		if ($n == 0) {
+			if (!$this->datetx0) {
+				$this->datetx0 = ($this->x0 + $incr) * $multi;
+			}
+			return $this->datetx0;
+		} else {
+			if (!$this->datetxn) {
+				$this->datetxn = ($this->xn + $incr) * $multi;
+			}
+			return $this->datetxn;
+		}
 	}
 }

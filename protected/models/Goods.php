@@ -52,7 +52,7 @@ class Goods extends CActiveRecord
 		return array(
 			'shop' => array(self::BELONGS_TO, 'Shops', 'shop_id'),
 			'prices' => array(self::HAS_MANY, 'Prices', 'good_id', 'order'=>'`date` ASC', 'condition' => 'prices.date > "'.date("Y-m-d", (time()-31622400-24*60*60)).'"' ),
-			'aproxi' => array(self::HAS_MANY, 'Aproxi', 'good_id', 'limit'=>1),
+			'aproxi' => array(self::HAS_MANY, 'Aproxi', 'good_id', 'order'=>'`date` DESC', 'limit'=>1),
 		);
 	}
 
@@ -208,12 +208,19 @@ class Goods extends CActiveRecord
 		}
 	}
 
-	public function parsetitle()
+	public function loadimage()
 	{
 		$parser = new Parser();
-		$title = $parser->getTitle($this, $this->shop);
-		return $title;
-
+		$image_url = $parser->getImageUrl($this->url, $this->shop);
+		$imag = file_get_contents($image_url);
+		$path = YiiBase::getPathOfAlias('webroot') . "/data/" . $this->tableName() . "/" . $this->id;
+		$path_1 = explode("/", $image_url);
+		$path_2 = explode("?", end($path_1));
+		$path_3 = explode(".", $path_2[0]);
+		$file_ext = end($path_3);
+		mkdir($path);
+		file_put_contents($path . "/imag." . $file_ext, $imag);
+		return $image_url;
 	}
 
 	public function getFirstDate()
