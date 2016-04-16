@@ -4,13 +4,15 @@
  * This is the model class for table "shops".
  *
  * The followings are the available columns in table 'shops':
- * @property integer $shop_id
- * @property string $shop_title
+ * @property integer $id
+ * @property string $title
+ * @property string $domain
  * @property string $block_exp
  * @property string $price_exp
  * @property string $new_price_exp
  * @property string $old_price_exp
  * @property string $title_exp
+ * @property string $image_exp
  */
 class Shops extends CActiveRecord
 {
@@ -30,11 +32,12 @@ class Shops extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('block_exp, price_exp, new_price_exp, old_price_exp, title_exp', 'required'),
-			array('shop_title', 'safe'),
+			array('domain, block_exp, price_exp, new_price_exp, old_price_exp, title_exp, image_exp', 'required'),
+			array('domain', 'length', 'max'=>255),
+			array('title', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('shop_id, shop_title, block_exp, price_exp, new_price_exp, old_price_exp, title_exp', 'safe', 'on'=>'search'),
+			array('id, title, domain, block_exp, price_exp, new_price_exp, old_price_exp, title_exp, image_exp', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,13 +58,15 @@ class Shops extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'shop_id' => 'Shop',
-			'shop_title' => 'Shop Title',
+			'id' => 'ID',
+			'title' => 'Title',
+			'domain' => 'Domain',
 			'block_exp' => 'Block Exp',
 			'price_exp' => 'Price Exp',
 			'new_price_exp' => 'New Price Exp',
 			'old_price_exp' => 'Old Price Exp',
 			'title_exp' => 'Title Exp',
+			'image_exp' => 'Image Exp',
 		);
 	}
 
@@ -83,13 +88,15 @@ class Shops extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('shop_id',$this->shop_id);
-		$criteria->compare('shop_title',$this->shop_title,true);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('domain',$this->domain,true);
 		$criteria->compare('block_exp',$this->block_exp,true);
 		$criteria->compare('price_exp',$this->price_exp,true);
 		$criteria->compare('new_price_exp',$this->new_price_exp,true);
 		$criteria->compare('old_price_exp',$this->old_price_exp,true);
 		$criteria->compare('title_exp',$this->title_exp,true);
+		$criteria->compare('image_exp',$this->image_exp,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

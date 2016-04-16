@@ -159,9 +159,10 @@ class GoodsController extends Controller
 			'criteria'=>array(
 				'with'=>array('prices', 'aproxi'),
 				'condition' => 'notshow = 0',
+				//'params' => array('notssshow' => "0")
 			),
 			'pagination'=>array(
-				'pageSize'=>20,
+				'pageSize'=>21,
 			),
 		));
 

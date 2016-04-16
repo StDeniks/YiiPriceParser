@@ -122,20 +122,28 @@ class Goods extends CActiveRecord
 		$parser = new Parser();
 		$prices = $parser->getPrices($this);
 		if ($prices) {
-			$price_model = new Prices;
-			$data = array(
-				'good_id' => $this->id,
-				'price' => $prices['new'],
-				'old_price' => $prices['old'],
-				'date' => date("Y-m-d"),
-			);
-			$price_model->attributes = $data;
-			try {
-				return $price_model->save();
-			}catch (Exception $e){
-				return false;
-			}
+			return $this->saveprice($prices['new'], $prices['old']);
+		} else {
+			return false;
 		}
+	}
+
+	public function saveprice($price, $old_price=NULL)
+	{
+		$price_model = new Prices;
+		$data = array(
+			'good_id' => $this->id,
+			'price' => $price,
+			'old_price' => $old_price,
+			'date' => date("Y-m-d"),
+		);
+		$price_model->attributes = $data;
+		try {
+			return $price_model->save();
+		}catch (Exception $e){
+			return false;
+		}
+
 	}
 
 	public function calculateaproxi()
@@ -159,7 +167,7 @@ class Goods extends CActiveRecord
 			}
 		}
 		$zn = $n * $sumXX - $sumX * $sumX;
-		if ($zn > 0) {
+		if ($zn > 0 && $n > 30) {
 			$a = ($n * $sumXY - $sumX * $sumY) / $zn;
 			$b = ($sumY - $a * $sumX) / $n;
 			$x0 = $this->prices[0]->getDatet();

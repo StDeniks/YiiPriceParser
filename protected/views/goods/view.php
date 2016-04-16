@@ -19,7 +19,6 @@ if (!Yii::app()->user->isGuest) {
 }
 ?>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/highcharts.js"></script>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/modules/exporting.js"></script>
 <div class="good-placer">
 	<script>
 		var hicharts_settings= {
