@@ -7,10 +7,12 @@ body{
     background: #000;
     color: aquamarine;
 }
+a {
+    color: #45b3e7;
+}
 
 .menu-buff{
     height: 40px;
-
 }
 .top-menu{
     position: fixed;

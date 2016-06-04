@@ -12,7 +12,7 @@ class SiteController extends Controller
 	{
 		return array(
 			// captcha action renders the CAPTCHA image displayed on the contact page
-			'captcha'=>array(
+			/*'captcha'=>array(
 				'class'=>'CCaptchaAction',
 				'backColor'=>0xFFFFFF,
 			),
@@ -20,7 +20,7 @@ class SiteController extends Controller
 			// They can be accessed via: index.php?r=site/page&view=FileName
 			'page'=>array(
 				'class'=>'CViewAction',
-			),
+			),*/
 		);
 	}
 
@@ -28,12 +28,12 @@ class SiteController extends Controller
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
 	 */
-	public function actionIndex()
+	/*public function actionIndex()
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
 		//$this->render('index');
-	}
+	}*/
 
 	/**
 	 * This is the action to handle external exceptions.
@@ -52,7 +52,7 @@ class SiteController extends Controller
 	/**
 	 * Displays the contact page
 	 */
-	public function actionContact()
+	/*public function actionContact()
 	{
 		$model=new ContactForm;
 		if(isset($_POST['ContactForm']))
@@ -73,7 +73,7 @@ class SiteController extends Controller
 			}
 		}
 		$this->render('contact',array('model'=>$model));
-	}
+	}*/
 
 	/**
 	 * Displays the login page
@@ -108,5 +108,13 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+
+	public function actionTest()
+	{
+		for ($i=1; $i<10; $i++) {
+			$p = new Parser();
+			$p->get("http://stdenis.ru/test.php?r=$i");
+		}
 	}
 }

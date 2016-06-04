@@ -32,7 +32,7 @@ class Shops extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('domain, block_exp, price_exp, new_price_exp, old_price_exp, title_exp, image_exp', 'required'),
+			array('domain', 'required'),
 			array('domain', 'length', 'max'=>255),
 			array('title', 'safe'),
 			// The following rule is used by search().
@@ -59,14 +59,14 @@ class Shops extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
-			'domain' => 'Domain',
-			'block_exp' => 'Block Exp',
-			'price_exp' => 'Price Exp',
-			'new_price_exp' => 'New Price Exp',
-			'old_price_exp' => 'Old Price Exp',
-			'title_exp' => 'Title Exp',
-			'image_exp' => 'Image Exp',
+			'title' => 'Заголовок',
+			'domain' => 'Домен',
+			'block_exp' => 'Регулярка для блока с ценой',
+			'price_exp' => 'Регулярка для цены',
+			'new_price_exp' => 'Регулярка для новой цены',
+			'old_price_exp' => 'Регулярка для старой цены',
+			'title_exp' => 'Регулярка для заголовка',
+			'image_exp' => 'Регулярка для картинки',
 		);
 	}
 
