@@ -40,10 +40,9 @@ class Parser
 			$this->Error("Неудалось получить страницу для:" . $good->id);
 		}
 
-
 		$html = $this->cutHtml($html, $good->shop->block_exp);
-
 		$price = array();
+
 		$price['new'] = $this->fetchPrice($html, $good->shop->price_exp);
 		if (!$price['new']) {
 			$price['new'] = $this->fetchPrice($html, $good->shop->new_price_exp);
@@ -82,13 +81,18 @@ class Parser
 	{
 		if (!$exp)
 			return false;
-
 		$exp = "#" . preg_quote($exp) . "#mis";
 		$exp = preg_replace("#\\\{rub\\\}#", "(.*?)", $exp);
 		$exp = preg_replace("#\\\{kop\\\}#", "(.*?)", $exp);
 		$exp = preg_replace('#\s#', '.*?', $exp);
 		if (preg_match($exp, $html, $p)) {
-			$price = floatval(str_replace(" ", "", $p[1] . "." . $p[2]));
+			if ($p[1]){
+				$pr = $p[1];
+			}
+			if($p[2]){
+				$pr .=".".$p[2];
+			}
+			$price = floatval(str_replace(" ", "", $pr));
 			return $price;
 		} else
 			return false;
@@ -130,7 +134,9 @@ class Parser
 		$exp = preg_replace("#\\\{title\\\}#", "(.*?)", $exp);
 		$exp = preg_replace("#\s#", ".*?", $exp);
 		if (preg_match($exp, $html, $p)) {
-			return $p[1];
+			if($p[1])
+				return $p[1];
+			else return false;
 		} else return false;
 
 	}
