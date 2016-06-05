@@ -86,10 +86,10 @@ class Parser
 		$exp = preg_replace("#\\\{kop\\\}#", "(.*?)", $exp);
 		$exp = preg_replace('#\s#', '.*?', $exp);
 		if (preg_match($exp, $html, $p)) {
-			if ($p[1]){
+			if (isset($p[1])){
 				$pr = $p[1];
 			}
-			if($p[2]){
+			if(isset($p[2])){
 				$pr .=".".$p[2];
 			}
 			$price = floatval(str_replace(" ", "", $pr));
