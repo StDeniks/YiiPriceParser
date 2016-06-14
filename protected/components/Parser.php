@@ -124,7 +124,6 @@ class Parser
 		$domain = parse_url($url);
 		preg_match_all("/([\w-]+)/i", $domain["host"], $arr, PREG_PATTERN_ORDER);
 		$res = array_reverse($arr[0]);
-		echo"{$res[1]}.{$res[0]}";
 		return "{$res[1]}.{$res[0]}";
 	}
 
@@ -134,7 +133,7 @@ class Parser
 		$exp = "#" . preg_quote($shop->title_exp) . "#";
 		$exp = preg_replace("#\\\{title\\\}#", "(.*?)", $exp);
 		if (preg_match($exp, $html, $p)) {
-			if ($p[1]) {
+			if (isset($p[1])) {
 				if ($shop->charset) {
 					return iconv($shop->charset, "utf-8", $p[1]);
 				} else {
