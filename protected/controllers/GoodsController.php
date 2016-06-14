@@ -62,7 +62,7 @@ class GoodsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Goods;
+		$model=new Goods('create');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -77,7 +77,6 @@ class GoodsController extends Controller
 			$shop = Shops::model()->findByAttributes(array('domain'=> $shop_domain));
 			$data['shop_id'] = $shop->id;
 			$data['title'] = $parser->getTitle($_POST['Goods']['url'], $shop);
-
 			$model->attributes = $data;
 
 			if($model->save())

@@ -132,11 +132,14 @@ class Parser
 		$html = $this->get($url);
 		$exp = "#" . preg_quote($shop->title_exp) . "#";
 		$exp = preg_replace("#\\\{title\\\}#", "(.*?)", $exp);
-		$exp = preg_replace("#\s#", ".*?", $exp);
 		if (preg_match($exp, $html, $p)) {
-			if($p[1])
-				return $p[1];
-			else return false;
+			if ($p[1]) {
+				if ($shop->charset) {
+					return iconv($shop->charset, "utf-8", $p[1]);
+				} else {
+					return $p[1];
+				}
+			} else return false;
 		} else return false;
 
 	}

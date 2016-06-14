@@ -31,7 +31,8 @@ class Goods extends CActiveRecord
 		return array(
 			array('shop_id, url', 'required', 'message' => "не может быть пустым"),
 			array('shop_id, notshow, notparse', 'numerical', 'integerOnly'=>true),
-			array('title, url', 'safe'),
+			array('url', 'unique', 'attributeName'=>'url', 'caseSensitive'=>false, 'className'=>'Goods', 'on'=>'create'),
+			array('title', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, title, shop, url, notshow, notparse', 'safe', 'on'=>'search'),

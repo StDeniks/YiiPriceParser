@@ -32,6 +32,12 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'charset'); ?>
+		<?php echo $form->textField($model,'charset',array('size'=>60,'maxlength'=>10)); ?>
+		<?php echo $form->error($model,'charset'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'block_exp'); ?>
 		<?php echo $form->textArea($model,'block_exp',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'block_exp'); ?>

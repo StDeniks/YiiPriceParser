@@ -34,6 +34,7 @@ class Shops extends CActiveRecord
 		return array(
 			array('domain', 'required'),
 			array('domain', 'length', 'max'=>255),
+			array('charset', 'length', 'max'=>10),
 			array('title, block_exp, price_exp, new_price_exp, old_price_exp, title_exp', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -61,6 +62,7 @@ class Shops extends CActiveRecord
 			'id' => 'ID',
 			'title' => 'Заголовок',
 			'domain' => 'Домен',
+			'charset' => 'Кодировка сайта',
 			'block_exp' => 'Регулярка для блока с ценой',
 			'price_exp' => 'Регулярка для цены',
 			'new_price_exp' => 'Регулярка для новой цены',
