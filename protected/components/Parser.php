@@ -122,8 +122,9 @@ class Parser
 	public function fetchDomain($url)
 	{
 		$domain = parse_url($url);
-		preg_match_all("/(\w+)/i", $domain["host"], $arr, PREG_PATTERN_ORDER);
+		preg_match_all("/([\w-]+)/i", $domain["host"], $arr, PREG_PATTERN_ORDER);
 		$res = array_reverse($arr[0]);
+		echo"{$res[1]}.{$res[0]}";
 		return "{$res[1]}.{$res[0]}";
 	}
 

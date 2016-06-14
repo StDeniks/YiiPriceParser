@@ -67,15 +67,16 @@ class GoodsController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Goods']))
-		{
-			$data=$_POST['Goods'];
+		if(isset($_POST['Goods'])) {
+			$data = $_POST['Goods'];
 
 			$parser = new Parser();
 
 			$shop_domain = $parser->fetchDomain($data['url']);
-			$shop = Shops::model()->findByAttributes(array('domain'=> $shop_domain));
-			$data['shop_id'] = $shop->id;
+			$shop = Shops::model()->findByAttributes(array('domain' => $shop_domain));
+			if ($shop) {
+				$data['shop_id'] = $shop->id;
+			}
 			$data['title'] = $parser->getTitle($_POST['Goods']['url'], $shop);
 			$model->attributes = $data;
 
