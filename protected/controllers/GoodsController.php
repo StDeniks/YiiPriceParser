@@ -77,7 +77,10 @@ class GoodsController extends Controller
 			if ($shop) {
 				$data['shop_id'] = $shop->id;
 			}
-			$data['title'] = $parser->getTitle($_POST['Goods']['url'], $shop);
+			$title = $parser->getTitle($_POST['Goods']['url'], $shop);
+			if ($title) {
+				$data['title'] = $title;
+			}
 			$model->attributes = $data;
 
 			if($model->save())
@@ -159,6 +162,7 @@ class GoodsController extends Controller
 			'criteria'=>array(
 				'with'=>array('prices', 'aproxi'),
 				'condition' => 'notshow = 0',
+				'order' => 'id ASC'
 				//'params' => array('notssshow' => "0")
 			),
 			'pagination'=>array(

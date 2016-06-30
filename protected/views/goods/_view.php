@@ -8,7 +8,10 @@
 		Выборка цен от <b><?=Yii::app()->utils->formatDate($data->getFirstDate())?></b> до <b><?=Yii::app()->utils->formatDate($data->getLastDate())?></b><br />
 		<?if($data->aproxi):?>
 			<span class="good-infl"><?=round($data->aproxi[0]->infl, 2)?>%</span><br/>
+			<div class="good-progressbar"><div style="width: <?=$data->aproxi[0]->getTrust()?>px;" class="good-progressbar-val"></div></div>
 		<?endif;?>
+
+
 		<img src="/data/shops/<?=$data->shop_id?>/logo_50x50.png" />
 
 		<br/>

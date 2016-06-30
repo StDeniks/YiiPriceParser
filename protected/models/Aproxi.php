@@ -146,4 +146,9 @@ class Aproxi extends CActiveRecord
 			return $this->datetxn;
 		}
 	}
+
+	public function getTrust()
+	{
+		return round($this->n*100/365, 0);
+	}
 }

@@ -72,6 +72,18 @@ a {
     font-size: 25px;
 }
 
+.good-progressbar{
+    width: 100px;
+    height: 5px;
+    border: 1px solid aquamarine;
+}
+
+.good-progressbar-val{
+    height: 5px;
+    background: green;
+
+}
+
 .edit-good-box{
     margin: 20px;
 }
