@@ -34,7 +34,7 @@ class Shops extends CActiveRecord
 		return array(
 			array('domain', 'required'),
 			array('domain', 'length', 'max'=>255),
-			array('charset', 'length', 'max'=>10),
+			array('charset', 'length', 'max'=>20),
 			array('title, block_exp, price_exp, new_price_exp, old_price_exp, title_exp', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
