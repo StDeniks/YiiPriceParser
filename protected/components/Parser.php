@@ -67,7 +67,6 @@ class Parser
 		$exp = preg_replace("#\\\{block\\\}#", "(.*?)", $exp);
 		//$exp = preg_replace('#\s#', '.*?', $exp);
 		$exp = iconv("windows-1251", "utf-8", $exp);
-
 		if (preg_match($exp, $html, $p)) {
 			return $p[0];
 		} else {
@@ -130,18 +129,16 @@ class Parser
 	public function getTitle($url, $shop)
 	{
 		$html = $this->get($url);
-		$exp = "#" . preg_quote($shop->title_exp) . "#";
-		$exp = preg_replace("#\\\{title\\\}#", "(.*?)", $exp);
+		if ($shop->charset) {
+			$html = iconv($shop->charset, "utf-8", $html);
+		}
+		$exp = "#" . preg_quote($shop->title_exp) . "#s";
+		$exp = str_replace("\{title\}", "(.*?)", $exp);
 		if (preg_match($exp, $html, $p)) {
 			if (isset($p[1])) {
-				if ($shop->charset) {
-					return iconv($shop->charset, "utf-8", $p[1]);
-				} else {
-					return $p[1];
-				}
+				return htmlspecialchars_decode(trim($p[1]));
 			} else return false;
 		} else return false;
-
 	}
 
 	public function getImageUrl($url, $shop)
@@ -219,7 +216,7 @@ class Parser
 				$page++;
 			} while (strpos($page_html, 'HTTP/1.1 200 OK')!==false);
 
-}
+		}
 
 	}
 
