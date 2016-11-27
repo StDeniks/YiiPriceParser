@@ -231,7 +231,7 @@ class Goods extends CActiveRecord
 		$path_2 = explode("?", end($path_1));
 		$path_3 = explode(".", $path_2[0]);
 		$file_ext = end($path_3);
-		if (in_array($file_ext, array('jpg', 'jpeg', 'png', 'gif'))) {
+		if (in_array(mb_strtolower($file_ext), array('jpg', 'jpeg', 'png', 'gif'))) {
 			if (!file_exists($path)) {
 				mkdir($path);
 			}

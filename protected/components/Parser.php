@@ -150,13 +150,16 @@ class Parser
 	public function getImageUrl($url, $shop)
 	{
 		$html = $this->get($url);
-		$exp = "#" . preg_quote($shop->image_exp) . "#";
+		$exp = "#" . preg_quote($shop->image_exp) . "#s";
 		$exp = str_replace("\{image\}", "(.*?)", $exp);
 		//$exp = preg_replace("#\s#", ".*?", $exp);
 		if (preg_match($exp, $html, $p)) {
 			$url = $p[1];
 			$url_data = parse_url($url);
 			if (!$url_data['host']) {
+				if($url[0]!="/"){
+					$url = "/".$url;
+				}
 				$url = $shop->domain . $url;
 			}
 			if (!$url_data['scheme']) {
