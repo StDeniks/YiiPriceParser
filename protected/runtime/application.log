@@ -5541,3 +5541,46 @@ Stack trace:
 #3 {main}
 REQUEST_URI=/favicon.ico
 ---
+2016/06/30 22:03:39 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in D:\OpenServer\domains\YiiFW\WWW\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\OpenServer\domains\YiiFW\WWW\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 D:\OpenServer\domains\YiiFW\WWW\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\OpenServer\domains\PriceParser\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2016/06/30 22:03:40 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in D:\OpenServer\domains\YiiFW\WWW\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\OpenServer\domains\YiiFW\WWW\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 D:\OpenServer\domains\YiiFW\WWW\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\OpenServer\domains\PriceParser\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2016/11/27 13:39:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in D:\OpenServer\domains\YiiFW\WWW\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\OpenServer\domains\YiiFW\WWW\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 D:\OpenServer\domains\YiiFW\WWW\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\OpenServer\domains\PriceParser\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2016/11/27 13:39:31 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'Unable to resolve the request "favicon.ico".' in D:\OpenServer\domains\YiiFW\WWW\framework\web\CWebApplication.php:286
+Stack trace:
+#0 D:\OpenServer\domains\YiiFW\WWW\framework\web\CWebApplication.php(141): CWebApplication->runController('favicon.ico')
+#1 D:\OpenServer\domains\YiiFW\WWW\framework\base\CApplication.php(180): CWebApplication->processRequest()
+#2 D:\OpenServer\domains\PriceParser\index.php(13): CApplication->run()
+#3 {main}
+REQUEST_URI=/favicon.ico
+---
+2016/11/27 13:43:25 [warning] [application] Failed to set unsafe attribute "image_exp" of "Shops".
+in D:\OpenServer\domains\PriceParser\protected\controllers\ShopsController.php (72)
+in D:\OpenServer\domains\PriceParser\index.php (13)
+2016/11/27 15:45:09 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '4899-2016-11-27' for key 'DATEPRICE'. The SQL statement executed was: INSERT INTO `prices` (`good_id`, `price`, `old_price`, `date`) VALUES (:yp0, :yp1, :yp2, :yp3).
+in D:\OpenServer\domains\PriceParser\protected\models\Goods.php (143)
+in D:\OpenServer\domains\PriceParser\protected\models\Goods.php (126)
+in D:\OpenServer\domains\PriceParser\protected\controllers\GoodsController.php (141)
+2016/11/27 15:51:13 [error] [system.db.CDbCommand] CDbCommand::execute() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '4900-2016-11-27' for key 'DATEPRICE'. The SQL statement executed was: INSERT INTO `prices` (`good_id`, `price`, `old_price`, `date`) VALUES (:yp0, :yp1, :yp2, :yp3).
+in D:\OpenServer\domains\PriceParser\protected\models\Goods.php (143)
+in D:\OpenServer\domains\PriceParser\protected\models\Goods.php (126)
+in D:\OpenServer\domains\PriceParser\protected\controllers\GoodsController.php (141)

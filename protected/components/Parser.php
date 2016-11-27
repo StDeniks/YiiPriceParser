@@ -35,6 +35,9 @@ class Parser
 	public function getPrices($good)
 	{
 		$html = $this->get($good->url);
+		if ($good->shop->charset) {
+			$html = iconv($good->shop->charset, "utf-8", $html);
+		}
 
 		if (!$html) {
 			$this->Error("Неудалось получить страницу для:" . $good->id);
@@ -60,13 +63,17 @@ class Parser
 		echo $str."\n";
 	}
 
+	private function Trace($str)
+	{
+		$this->log .= $str. "\r\n-----\r\n";
+	}
+
 	public function cutHtml($html, $exp)
 	{
 		if (!$exp) return $html;
 		$exp = "#" . preg_quote($exp) . "#mis";
-		$exp = preg_replace("#\\\{block\\\}#", "(.*?)", $exp);
+		$exp = str_replace("\{block\}", "(.*?)", $exp);
 		//$exp = preg_replace('#\s#', '.*?', $exp);
-		$exp = iconv("windows-1251", "utf-8", $exp);
 		if (preg_match($exp, $html, $p)) {
 			return $p[0];
 		} else {
@@ -81,8 +88,8 @@ class Parser
 		if (!$exp)
 			return false;
 		$exp = "#" . preg_quote($exp) . "#mis";
-		$exp = preg_replace("#\\\{rub\\\}#", "(.*?)", $exp);
-		$exp = preg_replace("#\\\{kop\\\}#", "(.*?)", $exp);
+		$exp = str_replace("\{rub\}", "(.*?)", $exp);
+		$exp = str_replace("\{kop\}", "(.*?)", $exp);
 		$exp = preg_replace('#\s#', '.', $exp);
 		if (preg_match($exp, $html, $p)) {
 			if (isset($p[1])){
