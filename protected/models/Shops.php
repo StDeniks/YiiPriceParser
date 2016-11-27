@@ -16,6 +16,7 @@
  */
 class Shops extends CActiveRecord
 {
+	public $image;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -35,7 +36,8 @@ class Shops extends CActiveRecord
 			array('domain', 'required'),
 			array('domain', 'length', 'max'=>255),
 			array('charset', 'length', 'max'=>20),
-			array('title, block_exp, price_exp, new_price_exp, old_price_exp, title_exp', 'safe'),
+			array('title, block_exp, price_exp, new_price_exp, old_price_exp, title_exp, image_exp', 'safe'),
+			array('image', 'file', 'types'=>'gif jpeg jpg png', 'allowEmpty' => 1),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, title, domain, block_exp, price_exp, new_price_exp, old_price_exp, title_exp, image_exp', 'safe', 'on'=>'search'),
@@ -62,6 +64,7 @@ class Shops extends CActiveRecord
 			'id' => 'ID',
 			'title' => 'Заголовок',
 			'domain' => 'Домен',
+			'image' => 'Логотип магазина',
 			'charset' => 'Кодировка сайта',
 			'block_exp' => 'Регулярка для блока с ценой',
 			'price_exp' => 'Регулярка для цены',
@@ -114,5 +117,10 @@ class Shops extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function getImagePath()
+	{
+		return Yii::getPathOfAlias('webroot').'/data/'.$this->tableName().'/'.$this->id.'/'.$this->image;
 	}
 }

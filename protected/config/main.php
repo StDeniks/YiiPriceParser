@@ -84,6 +84,15 @@ return array(
 				*/
 			),
 		),
+		'easyImage' => array(
+			'class' => 'application.extensions.easyimage.EasyImage',
+			'driver' => 'GD',
+			//'quality' => 100,
+			'cachePath' => '/assets/images/',
+			//'cacheTime' => 2592000,
+			//'retinaSupport' => false,
+			//'isProgressiveJpeg' => false,
+		),
 	),
 
 	// application-level parameters that can be accessed

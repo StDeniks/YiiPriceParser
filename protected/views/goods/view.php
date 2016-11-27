@@ -14,6 +14,7 @@ if (!Yii::app()->user->isGuest) {
 		array('label' => 'Изменить', 'url' => array('update', 'id' => $model->id), 'linkOptions' => array('class' => "button")),
 		array('label' => 'Удалить', 'url' => '#', 'linkOptions' => array('class' => "button", 'submit' => array('delete', 'id' => $model->id), 'confirm' => 'Вы действительно хотите удалить этот товар?')),
 		array('label' => 'Спарсить цену', 'url' => '#', 'linkOptions' => array('class' => "button", 'submit' => array('parseprice', 'id' => $model->id))),
+		array('label' => 'Загрузить картинку', 'url' => '#', 'linkOptions' => array('class' => "button", 'submit' => array('loadimage', 'id' => $model->id))),
 		//array('label'=>'Manage Goods', 'url'=>array('admin')),
 	);
 }
@@ -68,6 +69,11 @@ if (!Yii::app()->user->isGuest) {
 </div>
 <div class="good-card">
 	<h2><?=$model->title?></h2>
+	<? if($model->image):?>
+	<div class="good-image">
+		<?=Yii::app()->easyImage->thumbOf($model->getImagePath(), array('resize' => array('width' => 100, 'height' => 100)));?>
+	</div>
+	<?endif;?>
 	Магазин: <b><?=$model->shop->title?></b><br/>
 	Ссылка: <b><a  href="data:text/html,&lt;html&gt;&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=&#039;<?=$model->url;?>&#039;&quot;&gt;&lt;/html&gt;"><?=$model->url;?></a></b><br />
 	Скрыт: <b><?=($model->notshow)?"ДА":"НЕТ";?></b><br/>

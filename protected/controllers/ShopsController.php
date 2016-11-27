@@ -94,8 +94,17 @@ class ShopsController extends Controller
 		if(isset($_POST['Shops']))
 		{
 			$model->attributes=$_POST['Shops'];
-			if($model->save())
+			$image=CUploadedFile::getInstance($model,'image');
+			if ($image!==null) {
+				$model->image = $image;
+			}
+			if($model->save()){
+				if ($image!==null) {
+					$model->image->saveAs($model->getImagePath());
+				}
 				$this->redirect(array('view','id'=>$model->id));
+			}
+
 		}
 
 		$this->render('update',array(

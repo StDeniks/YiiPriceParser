@@ -16,7 +16,7 @@ $this->menu=array(
 ?>
 <div class="good-card">
 <h1>Магазин #<?php echo $model->id; ?></h1>
-
+<?=Yii::app()->easyImage->thumbOf($model->getImagePath(), array('resize' => array('width' => 100, 'height' => 100)));?>
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'cssFile'=>false,

@@ -151,8 +151,8 @@ class Parser
 	{
 		$html = $this->get($url);
 		$exp = "#" . preg_quote($shop->image_exp) . "#";
-		$exp = preg_replace("#\\\{image\\\}#", "(.*?)", $exp);
-		$exp = preg_replace("#\s#", ".*?", $exp);
+		$exp = str_replace("\{image\}", "(.*?)", $exp);
+		//$exp = preg_replace("#\s#", ".*?", $exp);
 		if (preg_match($exp, $html, $p)) {
 			$url = $p[1];
 			$url_data = parse_url($url);

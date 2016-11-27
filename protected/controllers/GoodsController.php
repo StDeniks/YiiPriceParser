@@ -36,7 +36,7 @@ class GoodsController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete', 'parseprice', 'parsetitle'),
+				'actions'=>array('admin','delete', 'parseprice', 'parsetitle', 'loadimage'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -139,6 +139,13 @@ class GoodsController extends Controller
 	public function actionParseprice($id)
 	{
 		if ($this->loadModel($id)->parseprice()) {
+			$this->redirect(array('view','id'=>$id));
+		}
+	}
+
+	public function actionLoadImage($id)
+	{
+		if ($this->loadModel($id)->loadimage()) {
 			$this->redirect(array('view','id'=>$id));
 		}
 	}

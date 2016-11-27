@@ -221,15 +221,32 @@ class Goods extends CActiveRecord
 	{
 		$parser = new Parser();
 		$image_url = $parser->getImageUrl($this->url, $this->shop);
+		if (!$image_url) {
+			echo "No image url";
+			return false;
+		}
 		$imag = file_get_contents($image_url);
-		$path = YiiBase::getPathOfAlias('webroot') . "/data/" . $this->tableName() . "/" . $this->id;
+		$path = $this->getImagePath();
 		$path_1 = explode("/", $image_url);
 		$path_2 = explode("?", end($path_1));
 		$path_3 = explode(".", $path_2[0]);
 		$file_ext = end($path_3);
-		mkdir($path);
-		file_put_contents($path . "/imag." . $file_ext, $imag);
-		return $image_url;
+		if (in_array($file_ext, array('jpg', 'jpeg', 'png', 'gif'))) {
+			if (!file_exists($path)) {
+				mkdir($path);
+			}
+			$name = time().".".$file_ext;
+			file_put_contents($path.$name, $imag);
+			$this->image=$name;
+			$this->update(true, array('image'));
+			return true;
+		}
+		return false;
+	}
+
+	public function getImagePath()
+	{
+		return Yii::getPathOfAlias('webroot').'/data/'.$this->tableName().'/'.$this->id.'/'.$this->image;
 	}
 
 	public function getFirstDate()

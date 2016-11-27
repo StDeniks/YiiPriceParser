@@ -83,6 +83,13 @@ a {
     background: green;
 
 }
+.good-image{
+    float: left;
+    margin: 5px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+}
 
 .edit-good-box{
     margin: 20px;
