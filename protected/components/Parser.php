@@ -80,7 +80,6 @@ class Parser
 			$this->Error("Не удалось получить блок");
 			return $html;
 		}
-
 	}
 
 	public function fetchPrice($html, $exp)
