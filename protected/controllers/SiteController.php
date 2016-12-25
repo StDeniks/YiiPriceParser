@@ -121,7 +121,6 @@ class SiteController extends Controller
 	/**
 	 * Fckng hosting don't support console
 	 */
-
 	public function actionLoadPrices()
 	{
 		$goods = Goods::model()->findAll('`notparse`=0');
