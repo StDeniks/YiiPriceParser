@@ -226,14 +226,14 @@ class Goods extends CActiveRecord
 			return false;
 		}
 		$imag = file_get_contents($image_url);
-		$path = $this->getImagePath();
+		$path = $this->getImagePath(true);
 		$path_1 = explode("/", $image_url);
 		$path_2 = explode("?", end($path_1));
 		$path_3 = explode(".", $path_2[0]);
 		$file_ext = end($path_3);
 		if (in_array(mb_strtolower($file_ext), array('jpg', 'jpeg', 'png', 'gif'))) {
 			if (!file_exists($path)) {
-				mkdir($path);
+				mkdir($path, 0755, true);
 			}
 			$name = time().".".$file_ext;
 			file_put_contents($path.$name, $imag);
@@ -244,8 +244,11 @@ class Goods extends CActiveRecord
 		return false;
 	}
 
-	public function getImagePath()
+	public function getImagePath($folder_only=null)
 	{
+		if($folder_only){
+			return Yii::getPathOfAlias('webroot').'/data/'.$this->tableName().'/'.$this->id.'/';
+		}
 		return Yii::getPathOfAlias('webroot').'/data/'.$this->tableName().'/'.$this->id.'/'.$this->image;
 	}
 

@@ -117,4 +117,19 @@ class SiteController extends Controller
 			$p->get("http://stdenis.ru/test.php?r=$i");
 		}
 	}
+
+	/**
+	 * Fckng hosting don't support console
+	 */
+	public function actionLoadPrices()
+	{
+		$goods = Goods::model()->findAll('`notparse`=0');
+		if ($goods) {
+			foreach ($goods as $good) {
+				$good->parseprice();
+				$good->calculateaproxi();
+			}
+		}
+	}
+
 }
