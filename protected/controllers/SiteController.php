@@ -123,7 +123,6 @@ class SiteController extends Controller
 	 */
 	public function actionLoadPrices()
 	{
-		set_time_limit(0);
 		$goods = Goods::model()->findAll('`notparse`=0');
 		if ($goods) {
 			foreach ($goods as $good) {
