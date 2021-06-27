@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Мониторинг цен',
+	'name'=>'Price Parser',
 	'defaultController' => 'goods',
 	// preloading 'log' component
 	'preload'=>array('log'),
@@ -21,12 +21,12 @@ return array(
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 
-		'gii'=>array(
+		/*'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'Pass',
+			//'password'=>'Padsdsdsdsdsss',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
-		),
+		),*/
 
 	),
 
@@ -41,6 +41,7 @@ return array(
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'showScriptName'=>false,
+			//'urlSuffix' => 'priceparser.',
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
@@ -64,6 +65,15 @@ return array(
 			'password' => '',
 			'charset' => 'utf8',
 		),
+		'easyImage' => array(
+			'class' => 'application.extensions.easyimage.EasyImage',
+			'driver' => 'GD',
+			//'quality' => 100,
+			'cachePath' => '/assets/images/',
+			//'cacheTime' => 2592000,
+			//'retinaSupport' => false,
+			//'isProgressiveJpeg' => false,
+		),
 
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
@@ -83,15 +93,6 @@ return array(
 				),
 				*/
 			),
-		),
-		'easyImage' => array(
-			'class' => 'application.extensions.easyimage.EasyImage',
-			'driver' => 'GD',
-			//'quality' => 100,
-			'cachePath' => '/assets/images/',
-			//'cacheTime' => 2592000,
-			//'retinaSupport' => false,
-			//'isProgressiveJpeg' => false,
 		),
 	),
 

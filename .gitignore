@@ -1,1 +1,18 @@
+# phpstorm project files
+.idea
+
+# netbeans project files
+nbproject
+
+# localnotes
+info
+
+# file with repository version
+VERSION
+
+
+protected/runtime/*
+/assets/*
 /data/*
+
+/protected/components/cookies.txt
