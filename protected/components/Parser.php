@@ -15,7 +15,7 @@ class Parser
 		$c = curl_init();
 		curl_setopt($c, CURLOPT_URL, $url);
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-		//curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
+		curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($c, CURLOPT_HEADER, 1);
 		curl_setopt($c, CURLOPT_COOKIEJAR, dirname(__FILE__) . $this->cookie_file_name);
 		curl_setopt($c, CURLOPT_COOKIEFILE, dirname(__FILE__) . $this->cookie_file_name);
@@ -42,8 +42,10 @@ class Parser
 		if (!$html) {
 			$this->Error("Неудалось получить страницу для:" . $good->id);
 		}
-
+		
+		//echo "<pre>".htmlspecialchars($html)."<pre>";
 		$html = $this->cutHtml($html, $good->shop->block_exp);
+		
 		$price = array();
 
 		$price['new'] = $this->fetchPrice($html, $good->shop->price_exp);
@@ -71,8 +73,10 @@ class Parser
 	public function cutHtml($html, $exp)
 	{
 		if (!$exp) return $html;
+		//echo htmlspecialchars($html);
 		$exp = "#" . preg_quote($exp) . "#mis";
 		$exp = str_replace("\{block\}", "(.*?)", $exp);
+		//echo htmlspecialchars($exp);
 		//$exp = preg_replace('#\s#', '.*?', $exp);
 		if (preg_match($exp, $html, $p)) {
 			return $p[0];
@@ -89,7 +93,7 @@ class Parser
 		$exp = "#" . preg_quote($exp) . "#mis";
 		$exp = str_replace("\{rub\}", "(.*?)", $exp);
 		$exp = str_replace("\{kop\}", "(.*?)", $exp);
-		$exp = preg_replace('#\s#', '.', $exp);
+		$exp = preg_replace('#\s#', '\s*', $exp);
 		if (preg_match($exp, $html, $p)) {
 			if (isset($p[1])){
 				$pr = $p[1];

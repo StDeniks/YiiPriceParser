@@ -188,7 +188,7 @@ class GoodsController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Goods']))
 			$model->attributes=$_GET['Goods'];
-
+		$model->notshow=0;
 		$this->render('search',array(
 			'model'=>$model,
 		));
