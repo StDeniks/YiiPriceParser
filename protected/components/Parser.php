@@ -17,6 +17,11 @@ class Parser
 		curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($c, CURLOPT_FOLLOWLOCATION, 1);
 		curl_setopt($c, CURLOPT_HEADER, 1);
+		$certificate_location = "cacert.pem"; // modify this line accordingly (may need to be absolute)
+        curl_setopt($c, CURLOPT_CAINFO, $certificate_location);
+        curl_setopt($c, CURLOPT_CAPATH, $certificate_location);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, $certificate_location);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, $certificate_location);
 		curl_setopt($c, CURLOPT_COOKIEJAR, dirname(__FILE__) . $this->cookie_file_name);
 		curl_setopt($c, CURLOPT_COOKIEFILE, dirname(__FILE__) . $this->cookie_file_name);
 		curl_setopt($c, CURLOPT_USERAGENT, $this->user_agent2);
