@@ -4,8 +4,12 @@
 # netbeans project files
 nbproject
 
-#all files stored in any runtime folder
-runtime/*
+# file with repository version
+VERSION
 
+
+protected/runtime/*
+/assets/*
 /data/*
+
 /protected/components/cookies.txt
