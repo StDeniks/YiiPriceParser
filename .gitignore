@@ -1,2 +1,3 @@
 /data/*
-/protected/runtime/*
+/protected/runtime/
+/protected/components/cookies.txt
