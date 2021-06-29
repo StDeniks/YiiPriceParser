@@ -74,7 +74,6 @@ return array(
 			//'retinaSupport' => false,
 			//'isProgressiveJpeg' => false,
 		),
-
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
@@ -82,6 +81,13 @@ return array(
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
+				array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'trace',
+                    'categories'=>'system.db.CDbCommand',
+                    'LogFile' => 'db.trace',
+                    'maxFileSize' => 1024 * 100, //100 MB
+                ),
 				array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',

@@ -52,7 +52,7 @@ class Goods extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'shop' => array(self::BELONGS_TO, 'Shops', 'shop_id'),
-			'prices' => array(self::HAS_MANY, 'Prices', 'good_id', 'order'=>'`date` ASC', 'condition' => 'prices.date > "'.date("Y-m-d", (time()-31622400-24*60*60)).'"' ),
+			'prices' => array(self::HAS_MANY, 'Prices', 'good_id', 'order'=>'`date` ASC'),
 			'aproxi' => array(self::HAS_MANY, 'Aproxi', 'good_id', 'order'=>'`date` DESC', 'limit'=>1),
 		);
 	}

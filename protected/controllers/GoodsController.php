@@ -51,8 +51,19 @@ class GoodsController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$start = date("Y-m-d", (time()-31622400-24*60*60));
+		$end = date("Y-m-d", (time()-2*24*60*60));
+		//$end='2021-06-25" AND prices.date<"2021-02-23';
+		$model=Goods::model()->with(array('prices'=>array(
+												'condition'=>"prices.date > :start_date AND prices.date < :end_date", 
+												'params'=> array(':start_date'=>$start, ':end_date'=>$end)
+											)))->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+
+		
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
 		));
 	}
 
@@ -167,7 +178,12 @@ class GoodsController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('Goods', array(
 			'criteria'=>array(
-				'with'=>array('prices', 'aproxi'),
+				'with'=>array(
+					'prices'=>array(
+						'condition'=>"prices.date > :start_date", 
+						'params'=> array(':start_date'=>date("Y-m-d", (time()-31622400-24*60*60)))
+						), 
+					'aproxi'),
 				'condition' => 'notshow = 0',
 				'order' => 'id ASC'
 				//'params' => array('notssshow' => "0")

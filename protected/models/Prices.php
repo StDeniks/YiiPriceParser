@@ -103,7 +103,16 @@ class Prices extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	public function inDateRange($start="", $end="")
+	{
+		$this->getDbCriteria()->mergeWith(array(
+			'condition'=>"date > :start_date AND date < :end_date", 
+			'params'=> array(':start_date'=>$start, ':end_date'=>$end)
+	    ));
 
+	    return $this;
+	}
 
 	public function getDatet($incr = 0, $multi = 1)
 	{

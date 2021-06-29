@@ -82,6 +82,9 @@ if (!Yii::app()->user->isGuest) {
 	<?if($model->aproxi):?>
 		Рост цены: <b><?=round($model->aproxi[0]->infl, 2)?>%</b>
 	<?endif;?>
+	
+	<?php $this->renderPartial('_dates_form', array('model'=>$model)); ?>
+	
 	<script type="text/javascript">
 
 		$(function () {
