@@ -61,8 +61,8 @@ return array(
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=yii_PriceParser',
 			'emulatePrepare' => true,
-			'username' => 'root',
-			'password' => '',
+			'username' => 'yii_PriceParser',
+			'password' => 'yii_PriceParser',
 			'charset' => 'utf8',
 		),
 		'easyImage' => array(
