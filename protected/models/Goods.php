@@ -29,7 +29,7 @@ class Goods extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('shop_id, url', 'required', 'message' => "не может быть пустым"),
+			array('shop_id, url', 'required', 'message' => "не может быть пустым", 'on'=>'create'),
 			array('shop_id, notshow, notparse', 'numerical', 'integerOnly'=>true),
 			array('url', 'unique', 'attributeName'=>'url', 'caseSensitive'=>false, 'className'=>'Goods', 'on'=>'create'),
 			array('title', 'safe'),
@@ -66,8 +66,9 @@ class Goods extends CActiveRecord
 			'id' => 'ID',
 			'title' => 'Название',
 			'shop.title' => 'Магазин',
+			'shop_id' => 'Магазин',
 			'url' => 'Ссылка',
-			'notshow' => 'Скрыть',
+			'notshow' => 'Скрытый',
 			'notparse' => 'НеПарсить',
 		);
 	}

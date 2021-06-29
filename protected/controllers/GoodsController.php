@@ -173,7 +173,7 @@ class GoodsController extends Controller
 				//'params' => array('notssshow' => "0")
 			),
 			'pagination'=>array(
-				'pageSize'=>21,
+				'pageSize'=>10,
 			),
 		));
 
@@ -188,7 +188,6 @@ class GoodsController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Goods']))
 			$model->attributes=$_GET['Goods'];
-		$model->notshow=0;
 		$this->render('search',array(
 			'model'=>$model,
 		));
