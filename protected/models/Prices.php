@@ -106,6 +106,13 @@ class Prices extends CActiveRecord
 	
 	public function inDateRange($start="", $end="")
 	{
+		if ($start=="") {
+			$start = date("Y-m-d", (time()-31622400-24*60*60));
+		}
+		if ($end=="") {
+			$end = date("Y-m-d", (time()+24*60*60));
+		}
+		
 		$this->getDbCriteria()->mergeWith(array(
 			'condition'=>"date > :start_date AND date < :end_date", 
 			'params'=> array(':start_date'=>$start, ':end_date'=>$end)
