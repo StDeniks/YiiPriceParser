@@ -6,6 +6,7 @@ class Parser
 	public $cookie_file_name = "/cookies.txt";
 	public $user_agent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17";
 	public $user_agent2 = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:35.0) Gecko/20100101 Firefox/35.0";
+	public $user_agent3 = "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0";
 
 
 
@@ -24,7 +25,7 @@ class Parser
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, $certificate_location);
 		curl_setopt($c, CURLOPT_COOKIEJAR, dirname(__FILE__) . $this->cookie_file_name);
 		curl_setopt($c, CURLOPT_COOKIEFILE, dirname(__FILE__) . $this->cookie_file_name);
-		curl_setopt($c, CURLOPT_USERAGENT, $this->user_agent2);
+		curl_setopt($c, CURLOPT_USERAGENT, $this->user_agent3);
 		curl_setopt($c, CURLOPT_TIMEOUT, 40);
 
 		$r = curl_exec($c);
@@ -144,11 +145,14 @@ class Parser
 	public function getTitle($url, $shop)
 	{
 		$html = $this->get($url);
+		//echo htmlspecialchars($html);
 		if ($shop->charset) {
 			$html = iconv($shop->charset, "utf-8", $html);
 		}
 		$exp = "#" . preg_quote($shop->title_exp) . "#s";
 		$exp = str_replace("\{title\}", "(.*?)", $exp);
+		//echo "<br>--------<br>";
+		//echo htmlspecialchars($exp);
 		if (preg_match($exp, $html, $p)) {
 			if (isset($p[1])) {
 				return htmlspecialchars_decode(trim($p[1]));
