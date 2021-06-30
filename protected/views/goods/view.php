@@ -81,7 +81,7 @@ if (!Yii::app()->user->isGuest) {
 		Парсинг: <b><?=($model->notparse)?"НЕТ":"ДА";?></b><br/>
 		Выборка цен от <b><?=Yii::app()->utils->formatDate($model->getFirstDate())?></b> до <b><?=Yii::app()->utils->formatDate($model->getLastDate())?></b><br />
 		<?if($model->aproxi):?>
-			Рост цены: <b><?=round($model->aproxi[0]->infl, 2)?>%</b> за период от <b><?=Yii::app()->utils->formatDate($model->aproxi[0]->getStartDate())?></b> до <b><?=Yii::app()->utils->formatDate($model->aproxi[0]->getEndDate())?></b> 
+			Рост цены: <b><?=round($model->aproxi[0]->infl, 2)?>%</b> за период от <b><?=Yii::app()->utils->formatDate($model->aproxi[0]->getStartDate())?></b> до <b><?=Yii::app()->utils->formatDate($model->aproxi[0]->getEndDate())?></b> на основе <?=$model->aproxi[0]->n?> дней
 		<?endif;?>
 	</div>
 	<?php $this->renderPartial('_dates_form', array('model'=>$model, 'prices_model'=>$prices_model)); ?>
