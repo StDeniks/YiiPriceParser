@@ -12,6 +12,8 @@
 class Prices extends CActiveRecord
 {
 	public $datet;
+	public $date_start;
+	public $date_end;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -37,6 +39,7 @@ class Prices extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('good_id, date, price, old_price', 'safe', 'on'=>'search'),
+			array('date_start, date_end', 'date', 'on'=>'data_range', 'format'=>'yyyy-MM-dd'),
 		);
 	}
 
@@ -62,6 +65,8 @@ class Prices extends CActiveRecord
 			'date' => 'Date',
 			'price' => 'Price',
 			'old_price' => 'Old Price',
+			'date_start' => 'От',
+			'date_end' => 'До',
 		);
 	}
 
@@ -107,14 +112,15 @@ class Prices extends CActiveRecord
 	public function inDateRange($start="", $end="")
 	{
 		if ($start=="") {
-			$start = date("Y-m-d", (time()-31622400-24*60*60));
+			$start = date("Y-m-d", (time()-31622400));
 		}
 		if ($end=="") {
-			$end = date("Y-m-d", (time()+24*60*60));
+			$end = date("Y-m-d", (time()));
 		}
 		
+		
 		$this->getDbCriteria()->mergeWith(array(
-			'condition'=>"date > :start_date AND date < :end_date", 
+			'condition'=>"date >= :start_date AND date <= :end_date", 
 			'params'=> array(':start_date'=>$start, ':end_date'=>$end)
 	    ));
 

@@ -1,11 +1,12 @@
 <?php
 /* @var $this GoodsController */
 /* @var $model Goods */
+/* @var $prices_model Prices */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
-Показать цены
+Показать цены:
 	<?php $form=$this->beginWidget('CActiveForm', array(
 		'id'=>'date-form',
 		'method' => 'get',
@@ -16,33 +17,33 @@
 		// See class documentation of CActiveForm for details on this.
 		'enableAjaxValidation'=>false,
 	)); 
-	$aproxi_model= new Aproxi();
 	
+	if ($model->getFirstDate()) {
+		$prices_model->date_start = $model->getFirstDate();
+	}
+	if ($model->getLastDate()) {
+		$prices_model->date_end = $model->getLastDate();
+	}
 	
 	?>
 
 
-	<?php  echo $form->errorSummary($aproxi_model); ?>
+	<?php  echo $form->errorSummary($prices_model); ?>
 
-	От
 	<div class="row">
-		<?php echo $form->labelEx($aproxi_model, 'date'); ?>
-		<?php echo $form->dateField($aproxi_model, 'date',); ?>
-		<?php echo $form->error($aproxi_model, 'date'); ?>
-		<?php // echo CHtml::ajaxButton('Спарсить заголовок', array('parsetitle','id'=>$model->id), array('success' => 'function(res){$("[name=\'Goods[title]\']").val(res)}')); ?>
+		<?php echo $form->labelEx($prices_model, 'date_start'); ?>
+		<?php echo $form->dateField($prices_model, 'date_start'); ?>
+		<?php echo $form->error($prices_model, 'date_start'); ?>
 	</div>
-	До
-	<? /*
+
 	<div class="row">
-		<?php echo $form->labelEx($model,'shop_id'); ?>
-		<?php echo $form->dropDownList($model, "shop_id", CHtml::listData($shops, 'id', 'title'), array('prompt'=>'Все магазины')); ?>
-		<?php echo $form->error($model,'shop_id'); ?>
+		<?php echo $form->labelEx($prices_model, 'date_end'); ?>
+		<?php echo $form->dateField($prices_model, 'date_end'); ?>
+		<?php echo $form->error($prices_model, 'date_end'); ?>
 	</div>
-	
-	<? */?>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Найти', array('class' => 'button')); ?>
+		<?php echo CHtml::submitButton('Показать', array('class' => 'button', 'name'=>'go')); ?>
 	</div>
 
 	<?php $this->endWidget(); ?>

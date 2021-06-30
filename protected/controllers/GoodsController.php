@@ -51,16 +51,20 @@ class GoodsController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$prices_model = new Prices('data_range');
+		$prices_model->attributes=$_GET['Prices'];
+		$prices_model->validate();
 		//$start = date("Y-m-d", (time()-31622400-24*60*60));
 		//$end = date("Y-m-d", (time()-2*24*60*60));
 		//$end='2021-06-25" AND prices.date<"2021-02-23';
-		$model=Goods::model()->with(array('prices'=>array('scopes'=>array("inDateRange"=> array($start)))))->findByPk($id);
+		$model=Goods::model()->with(array('prices'=>array('scopes'=>array("inDateRange"=> array($prices_model->date_start, $prices_model->date_end)))))->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 
 		
 		$this->render('view',array(
 			'model'=>$model,
+			'prices_model' => $prices_model
 		));
 	}
 
@@ -85,7 +89,9 @@ class GoodsController extends Controller
 			if ($shop) {
 				$data['shop_id'] = $shop->id;
 			}
+
 			$title = $parser->getTitle($_POST['Goods']['url'], $shop);
+
 			if ($title) {
 				$data['title'] = $title;
 			}

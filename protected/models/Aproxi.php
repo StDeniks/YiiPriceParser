@@ -146,6 +146,14 @@ class Aproxi extends CActiveRecord
 			return $this->datetxn;
 		}
 	}
+	
+	public function getStartDate(){
+		return date("Y-m-d", $this->x0);
+	}
+	
+	public function getEndDate(){
+		return date("Y-m-d", $this->xn);
+	}
 
 	public function getTrust()
 	{

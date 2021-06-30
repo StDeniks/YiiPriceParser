@@ -69,21 +69,22 @@ if (!Yii::app()->user->isGuest) {
 </div>
 <div class="good-card">
 	<h2><?=$model->title?></h2>
-	<? if($model->image):?>
-	<div class="good-image">
-		<?=Yii::app()->easyImage->thumbOf($model->getImagePath(), array('resize' => array('width' => 100, 'height' => 100)));?>
+	<div class="good-card-main-info">
+		<? if($model->image):?>
+			<div class="good-image">
+				<?=Yii::app()->easyImage->thumbOf($model->getImagePath(), array('resize' => array('width' => 100, 'height' => 100)));?>
+			</div>
+		<?endif;?>
+		Магазин: <b><?=$model->shop->title?></b><br/>
+		Ссылка: <b><a  href="data:text/html,&lt;html&gt;&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=&#039;<?=$model->url;?>&#039;&quot;&gt;&lt;/html&gt;"><?=$model->url;?></a></b><br />
+		Скрыт: <b><?=($model->notshow)?"ДА":"НЕТ";?></b><br/>
+		Парсинг: <b><?=($model->notparse)?"НЕТ":"ДА";?></b><br/>
+		Выборка цен от <b><?=Yii::app()->utils->formatDate($model->getFirstDate())?></b> до <b><?=Yii::app()->utils->formatDate($model->getLastDate())?></b><br />
+		<?if($model->aproxi):?>
+			Рост цены: <b><?=round($model->aproxi[0]->infl, 2)?>%</b> за период от <b><?=Yii::app()->utils->formatDate($model->aproxi[0]->getStartDate())?></b> до <b><?=Yii::app()->utils->formatDate($model->aproxi[0]->getEndDate())?></b> 
+		<?endif;?>
 	</div>
-	<?endif;?>
-	Магазин: <b><?=$model->shop->title?></b><br/>
-	Ссылка: <b><a  href="data:text/html,&lt;html&gt;&lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; url=&#039;<?=$model->url;?>&#039;&quot;&gt;&lt;/html&gt;"><?=$model->url;?></a></b><br />
-	Скрыт: <b><?=($model->notshow)?"ДА":"НЕТ";?></b><br/>
-	Парсинг: <b><?=($model->notparse)?"НЕТ":"ДА";?></b><br/>
-	Выборка цен от <b><?=Yii::app()->utils->formatDate($model->getFirstDate())?></b> до <b><?=Yii::app()->utils->formatDate($model->getLastDate())?></b><br />
-	<?if($model->aproxi):?>
-		Рост цены: <b><?=round($model->aproxi[0]->infl, 2)?>%</b>
-	<?endif;?>
-	
-	<?php $this->renderPartial('_dates_form', array('model'=>$model)); ?>
+	<?php $this->renderPartial('_dates_form', array('model'=>$model, 'prices_model'=>$prices_model)); ?>
 	
 	<script type="text/javascript">
 
@@ -134,7 +135,7 @@ if (!Yii::app()->user->isGuest) {
 			$('#plot<?=$model->id?>').highcharts(set);
 		});
 	</script>
-	<div id="plot<?=$model->id?>" ></div>
+	<div class="good-card-plot" id="plot<?=$model->id?>" ></div>
 
 </div>
 
