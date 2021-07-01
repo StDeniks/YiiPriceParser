@@ -23,8 +23,8 @@ class Parser
         curl_setopt($c, CURLOPT_CAPATH, $certificate_location);
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, $certificate_location);
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, $certificate_location);
-		curl_setopt($c, CURLOPT_COOKIEJAR, dirname(__FILE__) . $this->cookie_file_name);
-		curl_setopt($c, CURLOPT_COOKIEFILE, dirname(__FILE__) . $this->cookie_file_name);
+		curl_setopt($c, CURLOPT_COOKIEJAR, Yii::app()->runtimePath . $this->cookie_file_name);
+		curl_setopt($c, CURLOPT_COOKIEFILE, Yii::app()->runtimePath . $this->cookie_file_name);
 		curl_setopt($c, CURLOPT_USERAGENT, $this->user_agent3);
 		curl_setopt($c, CURLOPT_TIMEOUT, 40);
 
