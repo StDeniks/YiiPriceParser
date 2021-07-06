@@ -119,15 +119,17 @@ class Shops extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public function createLogo()
+	public function saveImage()
 	{
-		$this->image=CUploadedFile::getInstance($this, 'image');
+		
 		$path=$this->getDataDir();
 		if (!file_exists($path)) {
 			mkdir($path, 0777, true);
 		}
-		$name= $path."/orig.".$this->image->getExtensionName();
+		//$name= $path."/orig.".$this->image->getExtensionName();
+		$name= $path."/".$this->image;
 		$this->image->saveAs($name, true);
+		
 		$image = new EasyImage($name);
 		$image->resize(50, 50);
 		$image->save($path."/logo_50x50.png");
@@ -137,9 +139,10 @@ class Shops extends CActiveRecord
 	{
 		return Yii::getPathOfAlias('webroot').'/data/'.$this->tableName()."/".$this->id;
 	}
-
+	
 	public function getImagePath()
 	{
-		return Yii::getPathOfAlias('webroot').'/data/'.$this->tableName().'/'.$this->id.'/'.$this->image;
+		return $this->getDataDir().'/'.$this->image;
 	}
+
 }

@@ -70,8 +70,9 @@ class ShopsController extends Controller
 		if(isset($_POST['Shops']))
 		{
 			$model->attributes=$_POST['Shops'];
+			$model->image=CUploadedFile::getInstance($model, 'image');
 			if($model->save()){
-				$model->createLogo();
+				$model->saveImage();
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -96,8 +97,9 @@ class ShopsController extends Controller
 		if(isset($_POST['Shops']))
 		{
 			$model->attributes=$_POST['Shops'];
+			$model->image=CUploadedFile::getInstance($model, 'image');
 			if($model->save()){
-				$model->createLogo();
+				$model->saveImage();
 				$this->redirect(array('view','id'=>$model->id));
 			}
 
