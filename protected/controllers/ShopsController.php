@@ -70,8 +70,10 @@ class ShopsController extends Controller
 		if(isset($_POST['Shops']))
 		{
 			$model->attributes=$_POST['Shops'];
-			if($model->save())
+			if($model->save()){
+				$model->createLogo();
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('create',array(
@@ -94,14 +96,8 @@ class ShopsController extends Controller
 		if(isset($_POST['Shops']))
 		{
 			$model->attributes=$_POST['Shops'];
-			$image=CUploadedFile::getInstance($model,'image');
-			if ($image!==null) {
-				$model->image = $image;
-			}
 			if($model->save()){
-				if ($image!==null) {
-					$model->image->saveAs($model->getImagePath());
-				}
+				$model->createLogo();
 				$this->redirect(array('view','id'=>$model->id));
 			}
 
@@ -119,8 +115,13 @@ class ShopsController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
-
+		
+		$model = $this->loadModel($id);
+		if ($model!=null) {
+			CFileHelper::removeDirectory($model->getDataDir());
+		}
+		$model->delete();
+		
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
