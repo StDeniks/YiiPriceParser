@@ -119,8 +119,30 @@ class Shops extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function saveImage()
+	{
+		
+		$path=$this->getDataDir();
+		if (!file_exists($path)) {
+			mkdir($path, 0777, true);
+		}
+		//$name= $path."/orig.".$this->image->getExtensionName();
+		$name= $path."/".$this->image;
+		$this->image->saveAs($name, true);
+		
+		$image = new EasyImage($name);
+		$image->resize(50, 50);
+		$image->save($path."/logo_50x50.png");
+	}
+	
+	public function getDataDir()
+	{
+		return Yii::getPathOfAlias('webroot').'/data/'.$this->tableName()."/".$this->id;
+	}
+	
 	public function getImagePath()
 	{
-		return Yii::getPathOfAlias('webroot').'/data/'.$this->tableName().'/'.$this->id.'/'.$this->image;
+		return $this->getDataDir().'/'.$this->image;
 	}
+
 }
