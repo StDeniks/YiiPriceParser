@@ -121,18 +121,19 @@ class Shops extends CActiveRecord
 
 	public function saveImage()
 	{
-		
-		$path=$this->getDataDir();
-		if (!file_exists($path)) {
-			mkdir($path, 0777, true);
+		if ($this->image) {
+			$path=$this->getDataDir();
+			if (!file_exists($path)) {
+				mkdir($path, 0777, true);
+			}
+			//$name= $path."/orig.".$this->image->getExtensionName();
+			$name= $path."/".$this->image;
+			$this->image->saveAs($name, true);
+			
+			$image = new EasyImage($name);
+			$image->resize(50, 50);
+			$image->save($path."/logo_50x50.png");
 		}
-		//$name= $path."/orig.".$this->image->getExtensionName();
-		$name= $path."/".$this->image;
-		$this->image->saveAs($name, true);
-		
-		$image = new EasyImage($name);
-		$image->resize(50, 50);
-		$image->save($path."/logo_50x50.png");
 	}
 	
 	public function getDataDir()
