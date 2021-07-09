@@ -36,7 +36,7 @@ class GoodsController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete', 'parseprice', 'parsetitle', 'loadimage'),
+				'actions'=>array('admin','delete', 'parseprice', 'parsetitle', 'loadimage', 'CalculateAproxi'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -61,7 +61,7 @@ class GoodsController extends Controller
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 
-		
+
 		$this->render('view',array(
 			'model'=>$model,
 			'prices_model' => $prices_model
@@ -164,6 +164,17 @@ class GoodsController extends Controller
 		}
 	}
 
+	public function actionCalculateAproxi($id)
+	{
+
+		$good = Goods::model()->findByPk($id);
+
+		if ($good->calculateaproxi()) {
+			$this->redirect(array('view','id'=>$id));
+		}
+	}
+
+
 	/**
 	 * Parse title
 	 */
@@ -183,9 +194,9 @@ class GoodsController extends Controller
 			'criteria'=>array(
 				'with'=>array(
 					'prices'=>array(
-						'condition'=>"prices.date > :start_date", 
+						'condition'=>"prices.date > :start_date",
 						'params'=> array(':start_date'=>date("Y-m-d", (time()-31622400-24*60*60)))
-						), 
+						),
 					'aproxi'),
 				'condition' => 'notshow = 0',
 				'order' => 'id ASC'

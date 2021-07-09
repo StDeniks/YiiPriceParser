@@ -53,6 +53,7 @@ class Goods extends CActiveRecord
 		return array(
 			'shop' => array(self::BELONGS_TO, 'Shops', 'shop_id'),
 			'prices' => array(self::HAS_MANY, 'Prices', 'good_id', 'order'=>'`date` ASC'),
+			'year_prices' => array(self::HAS_MANY, 'Prices', 'good_id', 'order'=>'`date` ASC', 'scopes'=>"inDateRange"),
 			'aproxi' => array(self::HAS_MANY, 'Aproxi', 'good_id', 'order'=>'`date` DESC', 'limit'=>1),
 		);
 	}
@@ -155,11 +156,12 @@ class Goods extends CActiveRecord
 		$sumXX = 0;
 		$sumY = 0;
 		$sumXY = 0;
-		if (!$this->prices) {
+
+		if (!$this->year_prices) {
 			return false;
 		}
 
-		foreach ($this->prices as $price) {
+		foreach ($this->year_prices as $price) {
 			if (floatval($price->price) > 0) {
 				$sumX += $price->getDatet();
 				$sumXX += $price->getDatet() * $price->getDatet();
@@ -168,13 +170,14 @@ class Goods extends CActiveRecord
 				$n++;
 			}
 		}
+
 		$zn = $n * $sumXX - $sumX * $sumX;
 		if ($zn > 0 && $n > 30) {
 			$a = ($n * $sumXY - $sumX * $sumY) / $zn;
 			$b = ($sumY - $a * $sumX) / $n;
-			$x0 = $this->prices[0]->getDatet();
+			$x0 = $this->year_prices[0]->getDatet();
 			$y0 = $a * $x0 + $b;
-			$xn = $this->prices[$n - 1]->getDatet();
+			$xn = $this->year_prices[$n - 1]->getDatet();
 			$yn = $a * $xn + $b;
 
 
@@ -209,6 +212,7 @@ class Goods extends CActiveRecord
 			}catch (Exception $e){
 
 			}
+			return true;
 			/*return array(
 				array('x' => $this->prices[0], 'y' => $y0),
 				array('x' => $this->prices[$n - 1], 'y' => $yn),

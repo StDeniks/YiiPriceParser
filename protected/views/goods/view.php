@@ -15,6 +15,7 @@ if (!Yii::app()->user->isGuest) {
 		array('label' => 'Удалить', 'url' => '#', 'linkOptions' => array('class' => "button", 'submit' => array('delete', 'id' => $model->id), 'confirm' => 'Вы действительно хотите удалить этот товар?')),
 		array('label' => 'Спарсить цену', 'url' => '#', 'linkOptions' => array('class' => "button", 'submit' => array('parseprice', 'id' => $model->id))),
 		array('label' => 'Загрузить картинку', 'url' => '#', 'linkOptions' => array('class' => "button", 'submit' => array('loadimage', 'id' => $model->id))),
+		array('label' => 'Пересчитать рост цены', 'url' => '#', 'linkOptions' => array('class' => "button", 'submit' => array('calculateaproxi', 'id' => $model->id))),
 		//array('label'=>'Manage Goods', 'url'=>array('admin')),
 	);
 }
@@ -85,7 +86,7 @@ if (!Yii::app()->user->isGuest) {
 		<?endif;?>
 	</div>
 	<?php $this->renderPartial('_dates_form', array('model'=>$model, 'prices_model'=>$prices_model)); ?>
-	
+
 	<script type="text/javascript">
 
 		$(function () {
