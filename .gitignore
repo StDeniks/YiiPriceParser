@@ -4,6 +4,9 @@
 # netbeans project files
 nbproject
 
+#sublime project files
+*.sublime-*
+
 # localnotes
 info
 
