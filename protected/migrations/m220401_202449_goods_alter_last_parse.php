@@ -4,6 +4,7 @@ class m220401_202449_goods_alter_last_parse extends CDbMigration
 {
 	public function up()
 	{
+
 		 $this->addColumn('goods', 'last_parse', 'date');
 	}
 
