@@ -203,7 +203,7 @@ class GoodsController extends Controller
 						),
 					'aproxi'),
 				'condition' => 'notshow = 0',
-				'order' => 'id ASC'
+				'order' => 'last_parse DESC, id ASC'
 				//'params' => array('notssshow' => "0")
 			),
 			'pagination'=>array(

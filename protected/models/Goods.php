@@ -99,6 +99,8 @@ class Goods extends CActiveRecord
 		$criteria->compare('notshow',$this->notshow);
 		$criteria->compare('notparse',$this->notparse);
 
+		$criteria->order = 'last_parse DESC, id ASC';
+
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
@@ -125,6 +127,9 @@ class Goods extends CActiveRecord
 		$parser = new Parser();
 		$prices = $parser->getPrices($this);
 		if ($prices) {
+			$this->last_parse = date("Y-m-d");
+			$this->update(true, array('last_parse'));
+
 			return $this->saveprice($prices['new'], $prices['old']);
 		} else {
 			return false;
