@@ -99,6 +99,7 @@ class Parser
 		$exp = "#" . preg_quote($exp) . "#mis";
 		$exp = str_replace("\{rub\}", "(.*?)", $exp);
 		$exp = str_replace("\{kop\}", "(.*?)", $exp);
+		$exp = str_replace("\{\*\}", ".*?", $exp);
 		$exp = preg_replace('#\s#', '\s*', $exp);
 		if (preg_match($exp, $html, $p)) {
 			if (isset($p[1])){
